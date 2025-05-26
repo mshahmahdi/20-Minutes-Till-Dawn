@@ -1,0 +1,87 @@
+package com.tilldawn.model;
+
+import com.badlogic.gdx.audio.Music;
+
+import java.util.ArrayList;
+
+public class App {
+    private static App app;
+
+    private Player loggedInPlayer;
+    private Player pendingPlayer;
+    private game currentGame;
+
+    private boolean blackAndWhiteMode;
+    private Music music;
+
+    private final ArrayList<Player> players = new ArrayList<>();
+    private final ArrayList<game> games = new ArrayList<>();
+
+    private boolean autoReload;
+
+    public static App getApp() {
+        if (app == null) {
+            app = new App();
+            app.music = MenuGameAssetManager.getMenuGameAssetManager().music3;
+            app.autoReload = false;
+            app.blackAndWhiteMode = false;
+        }
+        return app;
+    }
+
+    public Player getLoggedInUser() {
+        return loggedInPlayer;
+    }
+
+    public game getCurrentGame() {
+        return currentGame;
+    }
+
+    public ArrayList<Player> getUsers() {
+        return players;
+    }
+
+    public ArrayList<game> getGames() {
+        return games;
+    }
+
+    public Player getPendingUser() {
+        return pendingPlayer;
+    }
+
+    public Music getMusic() { return music; }
+
+    public boolean isAutoReload() { return autoReload; }
+
+    public boolean isBlackAndWhiteMode() { return blackAndWhiteMode; }
+
+    public void setLoggedInUser(Player loggedInPlayer) {
+        this.loggedInPlayer = loggedInPlayer;
+    }
+
+    public void setCurrentGame(game currentGame) {
+        this.currentGame = currentGame;
+    }
+
+    public void setPendingUser(Player pendingPlayer) {
+        this.pendingPlayer = pendingPlayer;
+    }
+
+    public void setMusic(Music music) {
+        this.music = music;
+    }
+
+    public void setAutoReload(boolean autoReload) { this.autoReload = autoReload; }
+
+    public void setBlackAndWhiteMode(boolean blackAndWhiteMode) { this.blackAndWhiteMode = blackAndWhiteMode; }
+
+    // Auxiliary functions :
+
+    public void addUser(Player player) {
+        players.add(player);
+    }
+
+    public void addGame(game game) {
+        games.add(game);
+    }
+}
