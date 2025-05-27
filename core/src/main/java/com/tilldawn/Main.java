@@ -21,11 +21,11 @@ public class Main extends Game {
         App.getApp().setLoggedInUser(new Player("mostafa", "paSS12#$", "salam"));
         App.getApp().getLoggedInUser().setCurrentGame(new game(1, App.getApp().getLoggedInUser()));
         SignupMenuController.setAvatar(App.getApp().getLoggedInUser());
-        //getMain().setScreen(new SettingsMenuView(new SettingsMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
+        getMain().setScreen(new SettingsMenuView(new SettingsMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new MainMenuView(new MainMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new ForgetPasswordView(new ForgetPasswordMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new LoginMenuView(new LoginMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
-        getMain().setScreen(new SignupMenuView(new SignupMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
+        //getMain().setScreen(new SignupMenuView(new SignupMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
     }
 
     @Override

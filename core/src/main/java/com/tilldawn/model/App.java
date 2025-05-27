@@ -18,6 +18,7 @@ public class App {
     private final ArrayList<game> games = new ArrayList<>();
 
     private boolean autoReload;
+    private boolean soundEffect;
 
     public static App getApp() {
         if (app == null) {
@@ -51,6 +52,8 @@ public class App {
 
     public Music getMusic() { return music; }
 
+    public boolean isSoundEffect() { return soundEffect; }
+
     public boolean isAutoReload() { return autoReload; }
 
     public boolean isBlackAndWhiteMode() { return blackAndWhiteMode; }
@@ -74,6 +77,8 @@ public class App {
     public void setAutoReload(boolean autoReload) { this.autoReload = autoReload; }
 
     public void setBlackAndWhiteMode(boolean blackAndWhiteMode) { this.blackAndWhiteMode = blackAndWhiteMode; }
+
+    public void setSoundEffect(boolean soundEffect) { this.soundEffect = soundEffect; }
 
     // Auxiliary functions :
 

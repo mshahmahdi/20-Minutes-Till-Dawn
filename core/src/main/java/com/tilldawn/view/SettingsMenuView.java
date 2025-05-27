@@ -1,38 +1,32 @@
 package com.tilldawn.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Main;
 
 import com.tilldawn.controller.SettingsMenuController;
 import com.tilldawn.model.App;
+import com.tilldawn.model.Enums.KeysController;
 import com.tilldawn.model.MenuGameAssetManager;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
-
-
-import java.awt.*;
 
 public class SettingsMenuView implements Screen {
     private float stateTime = 0.0f;
@@ -53,6 +47,14 @@ public class SettingsMenuView implements Screen {
     private final SelectBox<String> controllerSelectBox2;
     private final Image controllerImage3;
     private final Image controllerImage4;
+    private final Label realoadControllerLabel;
+    private final Image reloadController;
+    private final Image reloadController2;
+    private final SelectBox reloadControllerSelectBox;
+    private final Label autoAimeLabel;
+    private final Image autoAime;
+    private final Image autoAime2;
+    private final SelectBox autoAimeSelectBox;
     private final Label autoReloadLabel;
     private final CheckBox autoReloadCheckbox;
     private final Label blackAndWhiteLabel;
@@ -80,13 +82,23 @@ public class SettingsMenuView implements Screen {
         this.choseControllerLabel = new Label("Select Controller for movement : ", skin);
         this.chosenControllerLabel2 = new Label("Select Controller for shooting : ", skin);
         this.controllerSelectBox = new SelectBox<>(skin);
-        this.controllerSelectBox.setItems("WASD keys" , "Arrow Keys");
+        this.controllerSelectBox.setItems("WASD keys", "Arrow Keys");
         this.controllerImage = new Image(MenuGameAssetManager.getMenuGameAssetManager().controller1);
-        this.controllerImage2 = new Image( MenuGameAssetManager.getMenuGameAssetManager().controller2);
+        this.controllerImage2 = new Image(MenuGameAssetManager.getMenuGameAssetManager().controller2);
         this.controllerImage3 = new Image(MenuGameAssetManager.getMenuGameAssetManager().controller3);
-        this.controllerImage4 = new Image(MenuGameAssetManager.getMenuGameAssetManager().controller4);
+        this.controllerImage4 = new Image(MenuGameAssetManager.getMenuGameAssetManager().controllerE);
+        this.autoAimeLabel = new Label("Select Controller for auto aim :  ", skin);
+        this.autoAime = new Image(MenuGameAssetManager.getMenuGameAssetManager().controller4);
+        this.autoAime2 = new Image(MenuGameAssetManager.getMenuGameAssetManager().controllerF);
+        this.reloadControllerSelectBox = new SelectBox<>(skin);
+        this.reloadControllerSelectBox.setItems("R Key", "Q Key");
+        this.realoadControllerLabel = new Label("Select Controller for reload : ", skin);
+        this.reloadController = new Image(MenuGameAssetManager.getMenuGameAssetManager().controllerR);
+        this.reloadController2 = new Image(MenuGameAssetManager.getMenuGameAssetManager().controllerQ);
+        this.autoAimeSelectBox = new SelectBox<>(skin);
+        this.autoAimeSelectBox.setItems("Space Key", "F Key");
         this.controllerSelectBox2 = new SelectBox<>(skin);
-        this.controllerSelectBox2.setItems("Left Click","Space");
+        this.controllerSelectBox2.setItems("Left Click", "Space");
         this.autoReloadLabel = new Label("Auto Reload : ", skin);
         this.autoReloadCheckbox = new CheckBox("Auto Reload", skin);
         this.blackAndWhiteLabel = new Label("Black & White Mode :  ", skin);
@@ -98,8 +110,6 @@ public class SettingsMenuView implements Screen {
         this.table = new Table();
         controller.setView(this);
     }
-
-
 
 
     @Override
@@ -114,7 +124,7 @@ public class SettingsMenuView implements Screen {
         table.center();
 
         settingsLabel.setFontScale(3f);
-        settingsLabel.setPosition(1000, 1300);
+        settingsLabel.setPosition(1000, 1350);
         settingsLabel.setColor(Color.valueOf("0A9396"));
         stage.addActor(settingsLabel);
         table.row().pad(50, 0, 10, 0);
@@ -131,12 +141,20 @@ public class SettingsMenuView implements Screen {
         table.row().pad(50, 0, 10, 0);
 
         table.add(sfxLabel);
+        if (App.getApp().isSoundEffect()) {
+            sfxCheckbox.setChecked(true);
+        }
         sfxLabel.setColor(Color.valueOf("e09f3e"));
         table.add(sfxCheckbox);
         table.row().pad(50, 0, 10, 0);
 
         table.add(choseControllerLabel);
         choseControllerLabel.setColor(Color.valueOf("e09f3e"));
+        if (KeysController.UP.getKey() == Input.Keys.W) {
+            controllerSelectBox.setSelectedIndex(0);
+        } else {
+            controllerSelectBox.setSelectedIndex(1);
+        }
         Table imageTable = new Table();
         imageTable.left();
         imageTable.add(controllerImage).width(100).height(100).padRight(100);
@@ -147,6 +165,11 @@ public class SettingsMenuView implements Screen {
 
         table.add(chosenControllerLabel2);
         chosenControllerLabel2.setColor(Color.valueOf("e09f3e"));
+        if (KeysController.SHOOT.getKey() == Input.Buttons.LEFT) {
+            controllerSelectBox2.setSelectedIndex(0);
+        } else {
+            controllerSelectBox2.setSelectedIndex(1);
+        }
         Table imageTable2 = new Table();
         imageTable2.left();
         imageTable2.add(controllerImage3).width(100).height(100).padRight(100);
@@ -155,19 +178,53 @@ public class SettingsMenuView implements Screen {
         table.add(controllerSelectBox2);
         table.row().pad(50, 0, 10, 0);
 
+        table.add(realoadControllerLabel);
+        realoadControllerLabel.setColor(Color.valueOf("e09f3e"));
+        if (KeysController.RELOAD.getKey() == Input.Keys.R) {
+            reloadControllerSelectBox.setSelectedIndex(0);
+        } else {
+            reloadControllerSelectBox.setSelectedIndex(1);
+        }
+        Table imageTable3 = new Table();
+        imageTable3.left();
+        imageTable3.add(reloadController).width(100).height(100).padRight(100);
+        imageTable3.add(reloadController2).width(100).height(100);
+        table.add(imageTable3);
+        table.add(reloadControllerSelectBox);
+        table.row().pad(50, 0, 10, 0);
+
+        table.add(autoAimeLabel);
+        autoAimeLabel.setColor(Color.valueOf("e09f3e"));
+        if (KeysController.AUTO_AIM.getKey() == Input.Keys.SPACE) {
+            autoAimeSelectBox.setSelectedIndex(0);
+        } else {
+            autoAimeSelectBox.setSelectedIndex(1);
+        }
+        Table imageTable4 = new Table();
+        imageTable4.left();
+        imageTable4.add(autoAime).width(100).height(100).padRight(100);
+        imageTable4.add(autoAime2).width(100).height(100);
+        table.add(imageTable4);
+        table.add(autoAimeSelectBox);
+        table.row().pad(50, 0, 10, 0);
+
         table.add(autoReloadLabel);
         autoReloadLabel.setColor(Color.valueOf("e09f3e"));
         table.add(autoReloadCheckbox);
         table.row().pad(50, 0, 10, 0);
 
         table.add(blackAndWhiteLabel);
-        if (App.getApp().isBlackAndWhiteMode()) { blackAndWhiteCheckbox.setChecked(true); }
+        if (App.getApp().isBlackAndWhiteMode()) {
+            blackAndWhiteCheckbox.setChecked(true);
+        }
         blackAndWhiteLabel.setColor(Color.valueOf("e09f3e"));
         table.add(blackAndWhiteCheckbox);
         table.row().pad(50, 0, 10, 0);
 
         backButton.setPosition(10, Gdx.graphics.getHeight() - backButton.getHeight() - 10);
-        if (App.getApp().isAutoReload()) { autoReloadCheckbox.setChecked(true); }
+        if (App.getApp().isAutoReload()) {
+            autoReloadCheckbox.setChecked(true);
+        }
         backButton.setColor(Color.ROYAL);
         stage.addActor(backButton);
 
@@ -190,7 +247,7 @@ public class SettingsMenuView implements Screen {
             currentFrame = MenuGameAssetManager.getMenuGameAssetManager().menuAnimation.getKeyFrame(0, false);
         }
 
-        if (App.getApp().isBlackAndWhiteMode()){
+        if (App.getApp().isBlackAndWhiteMode()) {
             TextureRegion fboRegion = new TextureRegion(fbo.getColorBufferTexture());
             fboRegion.flip(false, true);
             fbo.begin();
@@ -286,6 +343,14 @@ public class SettingsMenuView implements Screen {
 
     public Music getMusic() {
         return music;
+    }
+
+    public SelectBox getReloadControllerSelectBox() {
+        return reloadControllerSelectBox;
+    }
+
+    public SelectBox getAutoAimeSelectBox() {
+        return autoAimeSelectBox;
     }
 
     public void setMusic(Music music) {

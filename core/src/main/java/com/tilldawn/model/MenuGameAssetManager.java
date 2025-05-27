@@ -37,6 +37,15 @@ public class MenuGameAssetManager {
     public final Texture controller2 = new Texture(Gdx.files.internal("keys/keyboard_6150823.png"));
     public final Texture controller3 = new Texture(Gdx.files.internal("keys/mouse-clicker_6524730.png"));
     public final Texture controller4 = new Texture(Gdx.files.internal("keys/space_12233469.png"));
+    public final Texture controllerB = new Texture(Gdx.files.internal("keys/letter-b_12233550.png"));
+    public final Texture controllerC = new Texture(Gdx.files.internal("keys/letter-c_12233553.png"));
+    public final Texture controllerE = new Texture(Gdx.files.internal("keys/letter-e_12233559.png"));
+    public final Texture controllerF = new Texture(Gdx.files.internal("keys/letter-f_12233562.png"));
+    public final Texture controllerH = new Texture(Gdx.files.internal("keys/letter-h_12233568.png"));
+    public final Texture controllerL = new Texture(Gdx.files.internal("keys/letter-l_12233580.png"));
+    public final Texture controllerQ = new Texture(Gdx.files.internal("keys/letter-q_12233591.png"));
+    public final Texture controllerR = new Texture(Gdx.files.internal("keys/letter-r_12233593.png"));
+    public final Texture controllerT = new Texture(Gdx.files.internal("keys/letter-t_12233597.png"));
 
     public final Image dasherHero = new Image(new Texture(Gdx.files.internal("sprite/T/T_Dasher_Portrait.png")));
     public final Image diamondHero = new Image(new Texture(Gdx.files.internal("sprite/T/T_Diamond_Portrait.png")));

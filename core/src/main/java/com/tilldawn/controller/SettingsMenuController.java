@@ -68,6 +68,14 @@ public class SettingsMenuController {
                 }
             });
 
+            view.getSfxCheckbox().addListener(new ChangeListener() {
+
+                @Override
+                public void changed(ChangeEvent changeEvent, Actor actor) {
+                    App.getApp().setSoundEffect(view.getSfxCheckbox().isChecked());
+                }
+            });
+
             view.getControllerSelectBox().addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -104,22 +112,45 @@ public class SettingsMenuController {
             view.getAutoReloadCheckbox().addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
-                    if (view.getAutoReloadCheckbox().isChecked()) {
-                        App.getApp().setAutoReload(true);
-                    } else {
-                        App.getApp().setAutoReload(false);
+                    App.getApp().setAutoReload(view.getAutoReloadCheckbox().isChecked());
+                }
+            });
+
+            view.getReloadControllerSelectBox().addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent changeEvent, Actor actor) {
+                    int selected = view.getReloadControllerSelectBox().getSelectedIndex();
+                    switch (selected) {
+                        case 0:
+                            KeysController.RELOAD.setKey(Input.Keys.R);
+                            break;
+                        case 1:
+                            KeysController.RELOAD.setKey(Input.Keys.Q);
+                            break;
                     }
                 }
             });
 
+            view.getAutoAimeSelectBox().addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent changeEvent, Actor actor) {
+                    int selected = view.getAutoAimeSelectBox().getSelectedIndex();
+                    switch (selected) {
+                        case 0:
+                            KeysController.AUTO_AIM.setKey(Input.Keys.SPACE);
+                            break;
+                        case 1:
+                            KeysController.AUTO_AIM.setKey(Input.Keys.F);
+                            break;
+                    }
+                }
+            });
+
+
             view.getBlackAndWhiteCheckbox().addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
-                    if (view.getBlackAndWhiteCheckbox().isChecked()) {
-                        App.getApp().setBlackAndWhiteMode(true);
-                    } else {
-                        App.getApp().setBlackAndWhiteMode(false);
-                    }
+                    App.getApp().setBlackAndWhiteMode(view.getBlackAndWhiteCheckbox().isChecked());
                 }
             });
 

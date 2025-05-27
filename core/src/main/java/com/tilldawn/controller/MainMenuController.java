@@ -20,6 +20,9 @@ public class MainMenuController {
         if (view != null) {
             if (view.getSettingsButton().isChecked()) {
                 Main.getMain().setScreen(new SettingsMenuView(new SettingsMenuController() , skin));
+            } else if (view.getProfileButton().isChecked()) {
+
+
             } else if (view.getLogoutButton().isChecked()) {
                 App app = App.getApp();
                 app.setLoggedInUser(null);

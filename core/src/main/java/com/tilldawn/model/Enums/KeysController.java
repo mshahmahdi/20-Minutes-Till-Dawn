@@ -8,6 +8,8 @@ public enum KeysController {
     LEFT(Input.Keys.A),
     RIGHT(Input.Keys.D),
     SHOOT(Input.Buttons.LEFT),
+    RELOAD(Input.Keys.R),
+    AUTO_AIM(Input.Keys.SPACE),
 
     ;
 
@@ -17,7 +19,7 @@ public enum KeysController {
         this.key = key;
     }
 
-    public int getKey() {
+    public  int getKey() {
         return key;
     }
 
