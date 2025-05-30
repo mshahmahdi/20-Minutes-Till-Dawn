@@ -69,7 +69,6 @@ public class SettingsMenuController {
             });
 
             view.getSfxCheckbox().addListener(new ChangeListener() {
-
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
                     App.getApp().setSoundEffect(view.getSfxCheckbox().isChecked());

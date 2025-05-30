@@ -64,8 +64,8 @@ public class SignupMenuController {
             view.getLoginButton().setChecked(false);
             Main.getMain().setScreen(new LoginMenuView(new LoginMenuController(),skin));
         } if (view.getGuestButton().isChecked()) {
-            App.getApp().setLoggedInUser(new Player("Guest", "Guest", "Guest"));
-            setAvatar(App.getApp().getLoggedInUser());
+            App.getApp().setLoggedInPlayer(new Player("Guest", "Guest", "Guest"));
+            setAvatar(App.getApp().getLoggedInPlayer());
             Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
             view.getGuestButton().setChecked(false);
         }
@@ -75,7 +75,7 @@ public class SignupMenuController {
 
     private boolean isUsernameExist(String username) {
         App app = App.getApp();
-        for (Player player : app.getUsers()) {
+        for (Player player : app.getPlayers()) {
             if (player.getUsername().equals(username)) {
                 return true;
             }

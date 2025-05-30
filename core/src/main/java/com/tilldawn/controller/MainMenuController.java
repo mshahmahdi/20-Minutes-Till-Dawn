@@ -5,6 +5,7 @@ import com.tilldawn.Main;
 import com.tilldawn.model.App;
 import com.tilldawn.model.MenuGameAssetManager;
 import com.tilldawn.view.MainMenuView;
+import com.tilldawn.view.ProfileMenuView;
 import com.tilldawn.view.SettingsMenuView;
 import com.tilldawn.view.SignupMenuView;
 
@@ -21,14 +22,14 @@ public class MainMenuController {
             if (view.getSettingsButton().isChecked()) {
                 Main.getMain().setScreen(new SettingsMenuView(new SettingsMenuController() , skin));
             } else if (view.getProfileButton().isChecked()) {
-
-
+                Main.getMain().setScreen(new ProfileMenuView(new ProfileMenuController() , skin));
             } else if (view.getLogoutButton().isChecked()) {
                 App app = App.getApp();
-                app.setLoggedInUser(null);
+                app.setLoggedInPlayer(null);
                 app.setBlackAndWhiteMode(false);
                 app.setAutoReload(false);
                 app.setCurrentGame(null);
+                view.getMusic().stop();
                 app.setMusic(MenuGameAssetManager.getMenuGameAssetManager().music3);
                 app.getMusic().setVolume(0.5f);
                 Main.getMain().setScreen(new SignupMenuView(new SignupMenuController() , skin));

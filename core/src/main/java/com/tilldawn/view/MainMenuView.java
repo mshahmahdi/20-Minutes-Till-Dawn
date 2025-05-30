@@ -44,7 +44,7 @@ public class MainMenuView implements Screen {
     private final FrameBuffer fbo;
     private final TextureRegion fboRegion;
     private final MainMenuController controller;
-    Player player = App.getApp().getLoggedInUser();
+    Player player = App.getApp().getLoggedInPlayer();
 
     public MainMenuView(MainMenuController controller, Skin skin) {
         this.controller = controller;

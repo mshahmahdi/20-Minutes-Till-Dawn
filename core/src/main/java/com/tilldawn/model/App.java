@@ -30,7 +30,7 @@ public class App {
         return app;
     }
 
-    public Player getLoggedInUser() {
+    public Player getLoggedInPlayer() {
         return loggedInPlayer;
     }
 
@@ -38,15 +38,13 @@ public class App {
         return currentGame;
     }
 
-    public ArrayList<Player> getUsers() {
-        return players;
-    }
+    public ArrayList<Player> getPlayers() { return players; }
 
     public ArrayList<game> getGames() {
         return games;
     }
 
-    public Player getPendingUser() {
+    public Player getPendingUPlayer() {
         return pendingPlayer;
     }
 
@@ -58,7 +56,7 @@ public class App {
 
     public boolean isBlackAndWhiteMode() { return blackAndWhiteMode; }
 
-    public void setLoggedInUser(Player loggedInPlayer) {
+    public void setLoggedInPlayer(Player loggedInPlayer) {
         this.loggedInPlayer = loggedInPlayer;
     }
 
@@ -66,7 +64,7 @@ public class App {
         this.currentGame = currentGame;
     }
 
-    public void setPendingUser(Player pendingPlayer) {
+    public void setPendingPlayer(Player pendingPlayer) {
         this.pendingPlayer = pendingPlayer;
     }
 

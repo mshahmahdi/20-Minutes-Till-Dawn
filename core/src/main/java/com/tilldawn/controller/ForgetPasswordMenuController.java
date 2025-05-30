@@ -71,7 +71,7 @@ public class ForgetPasswordMenuController {
 
     private boolean isUsernameExist(String username) {
         App app = App.getApp();
-        for (Player player : app.getUsers()) {
+        for (Player player : app.getPlayers()) {
             if (player.getUsername().equals(username)) {
                 return true;
             }
@@ -81,7 +81,7 @@ public class ForgetPasswordMenuController {
 
     private Player getUserByUsername(String username) {
         App app = App.getApp();
-        for (Player player : app.getUsers()) {
+        for (Player player : app.getPlayers()) {
             if (player.getUsername().equals(username)) {
                 return player;
             }

@@ -220,11 +220,11 @@ public class SettingsMenuView implements Screen {
         blackAndWhiteLabel.setColor(Color.valueOf("e09f3e"));
         table.add(blackAndWhiteCheckbox);
         table.row().pad(50, 0, 10, 0);
-
-        backButton.setPosition(10, Gdx.graphics.getHeight() - backButton.getHeight() - 10);
         if (App.getApp().isAutoReload()) {
             autoReloadCheckbox.setChecked(true);
         }
+
+        backButton.setPosition(10, Gdx.graphics.getHeight() - backButton.getHeight() - 10);
         backButton.setColor(Color.ROYAL);
         stage.addActor(backButton);
 

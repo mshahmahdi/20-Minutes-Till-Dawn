@@ -41,7 +41,7 @@ public class LoginMenuController {
                     view.getLoginButton().setChecked(false);
                 } else {
                     App app = App.getApp();
-                    app.setLoggedInUser(getUserByUsername(username));
+                    app.setLoggedInPlayer(getUserByUsername(username));
                     Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
                 }
             } else if (view.getForgetPasswordButton().isChecked()) {
@@ -62,7 +62,7 @@ public class LoginMenuController {
 
     private boolean isUsernameExist(String username) {
         App app = App.getApp();
-        for (Player player : app.getUsers()) {
+        for (Player player : app.getPlayers()) {
             if (player.getUsername().equals(username)) {
                 return true;
             }
@@ -72,7 +72,7 @@ public class LoginMenuController {
 
     private Player getUserByUsername(String username) {
         App app = App.getApp();
-        for (Player player : app.getUsers()) {
+        for (Player player : app.getPlayers()) {
             if (player.getUsername().equals(username)) {
                 return player;
             }
