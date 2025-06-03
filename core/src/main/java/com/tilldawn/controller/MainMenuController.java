@@ -25,6 +25,8 @@ public class MainMenuController {
                 Main.getMain().setScreen(new ProfileMenuView(new ProfileMenuController() , skin));
             } else if (view.getScoreBoardButton().isChecked()) {
                 Main.getMain().setScreen(new ScoreboardMenuView(new ScoreboardMenuController(), skin, getUsernames()));
+            } else if (view.getHintsButton().isChecked()) {
+                Main.getMain().setScreen(new TalentMenuView(new TalentMenuController(), skin));
             } else if (view.getLogoutButton().isChecked()) {
                 App app = App.getApp();
                 app.setLoggedInPlayer(null);
