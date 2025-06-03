@@ -118,8 +118,9 @@ public class ProfileMenuView implements Screen {
         profileMenuLabel.setFontScale(3f);
         profileMenuLabel.setPosition(900, 1350);
         profileMenuLabel.setColor(Color.valueOf("0A9396"));
+        table.add(profileMenuLabel);
         stage.addActor(profileMenuLabel);
-        //table.row().pad(50, 0, 10, 0);
+        table.row().pad(50, 0, 10, 0);
 
         Table table0 = new Table();
         table0.left();

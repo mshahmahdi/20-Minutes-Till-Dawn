@@ -4,10 +4,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.tilldawn.Main;
 import com.tilldawn.model.App;
 import com.tilldawn.model.MenuGameAssetManager;
-import com.tilldawn.view.MainMenuView;
-import com.tilldawn.view.ProfileMenuView;
-import com.tilldawn.view.SettingsMenuView;
-import com.tilldawn.view.SignupMenuView;
+import com.tilldawn.model.Player;
+import com.tilldawn.view.*;
+
+import java.util.ArrayList;
 
 public class MainMenuController {
     private MainMenuView view;
@@ -23,6 +23,8 @@ public class MainMenuController {
                 Main.getMain().setScreen(new SettingsMenuView(new SettingsMenuController() , skin));
             } else if (view.getProfileButton().isChecked()) {
                 Main.getMain().setScreen(new ProfileMenuView(new ProfileMenuController() , skin));
+            } else if (view.getScoreBoardButton().isChecked()) {
+                Main.getMain().setScreen(new ScoreboardMenuView(new ScoreboardMenuController(), skin, getUsernames()));
             } else if (view.getLogoutButton().isChecked()) {
                 App app = App.getApp();
                 app.setLoggedInPlayer(null);
@@ -35,5 +37,13 @@ public class MainMenuController {
                 Main.getMain().setScreen(new SignupMenuView(new SignupMenuController() , skin));
             }
         }
+    }
+
+    private ArrayList<String> getUsernames() {
+        ArrayList<String> usernames = new ArrayList<>();
+        for (Player player : App.getApp().getPlayers()) {
+            usernames.add(player.getUsername());
+        }
+        return usernames;
     }
 }

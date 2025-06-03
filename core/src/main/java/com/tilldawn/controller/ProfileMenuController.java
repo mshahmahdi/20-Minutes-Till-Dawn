@@ -126,13 +126,6 @@ public class ProfileMenuController {
             view.getBackButton().addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
-
-                }
-            });
-
-            view.getBackButton().addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent changeEvent, Actor actor) {
                     if (view.getBackButton().isChecked()) {
                         Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
                     }

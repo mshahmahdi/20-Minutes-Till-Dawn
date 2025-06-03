@@ -3,13 +3,19 @@ package com.tilldawn.model;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import java.sql.Time;
+
 public class Player {
     private String username;
     private String password;
     private String securityQuestion;
     private Image avatar;
+
     private game currentGame;
+
+    private int kills;
     private int score;
+    private int longestSurvivalTime;
 
     public Player(String username, String password, String securityQuestion) {
         this.username = username;
@@ -17,6 +23,7 @@ public class Player {
         this.securityQuestion = securityQuestion;
         this.currentGame = null;
         this.score = 0;
+        this.longestSurvivalTime = 0;
     }
 
     public String getUsername() {
@@ -43,6 +50,10 @@ public class Player {
         return score;
     }
 
+    public int getKills() { return kills; }
+
+    public int getLongestSurvivalTime() { return longestSurvivalTime; }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -66,4 +77,8 @@ public class Player {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public void setKills(int kills) { this.kills = kills; }
+
+    public void setLongestSurvivalTime(int longestSurvivalTime) { this.longestSurvivalTime = longestSurvivalTime; }
 }

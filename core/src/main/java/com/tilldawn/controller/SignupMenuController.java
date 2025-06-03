@@ -65,6 +65,7 @@ public class SignupMenuController {
             Main.getMain().setScreen(new LoginMenuView(new LoginMenuController(),skin));
         } if (view.getGuestButton().isChecked()) {
             App.getApp().setLoggedInPlayer(new Player("Guest", "Guest", "Guest"));
+            App.getApp().addUser(App.getApp().getLoggedInPlayer());
             setAvatar(App.getApp().getLoggedInPlayer());
             Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
             view.getGuestButton().setChecked(false);

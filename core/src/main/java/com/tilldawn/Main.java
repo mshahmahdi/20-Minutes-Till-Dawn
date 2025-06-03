@@ -9,6 +9,8 @@ import com.tilldawn.model.Player;
 import com.tilldawn.model.game;
 import com.tilldawn.view.*;
 
+import java.util.ArrayList;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game {
     private static Main main;
@@ -21,8 +23,13 @@ public class Main extends Game {
         App.getApp().setLoggedInPlayer(new Player("mostafa", "paSS12#$", "salam"));
         App.getApp().addUser(App.getApp().getLoggedInPlayer());
         App.getApp().getLoggedInPlayer().setCurrentGame(new game(1, App.getApp().getLoggedInPlayer()));
+        for (int i = 0; i < 9; i++) {
+            App.getApp().setLoggedInPlayer(new Player(randomName(), "paSS12#$", "salam"));
+            App.getApp().addUser(App.getApp().getLoggedInPlayer());
+        }
         SignupMenuController.setAvatar(App.getApp().getLoggedInPlayer());
-        getMain().setScreen(new ProfileMenuView(new ProfileMenuController(),MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
+        getMain().setScreen(new ScoreboardMenuView(new ScoreboardMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin(), getUsernames()));
+        //getMain().setScreen(new ProfileMenuView(new ProfileMenuController(),MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new SettingsMenuView(new SettingsMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new MainMenuView(new MainMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new ForgetPasswordView(new ForgetPasswordMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
@@ -55,4 +62,24 @@ public class Main extends Game {
     public static void setBatch(SpriteBatch batch) {
         Main.batch = batch;
     }
+
+    public static String randomName() {
+        String a = "abcdefghijklmnopqrstuvwxyz";
+        int len = 5 + (int)(Math.random() * 6);
+        StringBuilder s = new StringBuilder();
+        s.append(Character.toUpperCase(a.charAt((int)(Math.random() * 26))));
+        for (int i = 1; i < len; i++)
+            s.append(a.charAt((int)(Math.random() * 26)));
+        return s.toString();
+    }
+
+    private ArrayList<String> getUsernames() {
+        ArrayList<String> usernames = new ArrayList<>();
+        for (Player player : App.getApp().getPlayers()) {
+            usernames.add(player.getUsername());
+        }
+        return usernames;
+    }
 }
+
+
