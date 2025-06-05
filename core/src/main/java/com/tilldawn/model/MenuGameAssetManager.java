@@ -90,6 +90,13 @@ public class MenuGameAssetManager {
         new Texture("tree_monster/T_TreeMonster_1.png"),
         new Texture("tree_monster/T_TreeMonster_2.png"));
 
+    public final Animation<TextureRegion> pumpkinMonster = new Animation<>(0.5f, new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_0.png")),
+        new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_1.png")),
+        new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_2.png")),
+        new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_3.png")),
+        new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_4.png")),
+        new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_5.png")));
+
     public final Animation<TextureRegion> menuAnimation = new Animation<>(0.2f, buildMenuAnimation(), Animation.PlayMode.LOOP);
     ;
 

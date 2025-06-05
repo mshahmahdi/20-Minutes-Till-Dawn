@@ -9,11 +9,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.tilldawn.Main;
+import com.tilldawn.model.*;
 import com.tilldawn.model.Enums.KeysController;
-import com.tilldawn.model.Game;
-import com.tilldawn.model.MenuGameAssetManager;
-import com.tilldawn.model.Player;
-import com.tilldawn.model.TreeMonster;
 
 public class PlayerController {
     public Game game;
@@ -53,7 +50,14 @@ public class PlayerController {
         for (TreeMonster tree : game.getTreeMonsters()) {
             if (tree.getRect().collidesWith(player.getRect())) {
                 player.takeDamage(1);
-                System.out.println(player.getPlayerHealth());// دمیج بخوره
+                System.out.println(player.getPlayerHealth());
+            }
+        }
+
+        for (PumpkinMonster pumpkinMonster : game.getPumpkinMonsters()) {
+            if (pumpkinMonster.getRect().collidesWith(player.getRect())) {
+                player.takeDamage(1);
+                System.out.println(player.getPlayerHealth());
             }
         }
 

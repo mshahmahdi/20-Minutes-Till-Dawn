@@ -15,10 +15,15 @@ public class Game {
     private final int heroNumber;
     private final int gunNumber;
 
+    private float elapsedTime;
+    private boolean isRunning = true;
+
     private ArrayList<TreeMonster> treeMonsters = new ArrayList<>();
+    private ArrayList<PumpkinMonster> pumpkinMonsters = new ArrayList<>();
 
     public Game(int id, User user, int time, int heroNumber, int gunNumber) {
         this.id = id;
+        elapsedTime = 0f;
         this.user = user;
         this.score = 0;
         if (time == 0) {
@@ -48,12 +53,42 @@ public class Game {
 
     public int getTime() { return time; }
 
+    public void update(float delta) {
+        if (isRunning) {
+            elapsedTime += delta;
+        }
+    }
+
+    public float getElapsedTime() {
+        return elapsedTime;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+    }
+
+    public void pause() {
+        isRunning = false;
+    }
+
+    public void resume() {
+        isRunning = true;
+    }
+
     public int getHeroNumber() { return heroNumber; }
 
     public int getGunNumber() { return gunNumber; }
 
     public ArrayList<TreeMonster> getTreeMonsters() {
         return treeMonsters;
+    }
+
+    public ArrayList<PumpkinMonster> getPumpkinMonsters() {
+        return pumpkinMonsters;
     }
 
     public void setId(int id) {

@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -24,6 +21,7 @@ import com.tilldawn.controller.MainMenuController;
 import com.tilldawn.model.App;
 import com.tilldawn.model.Enums.KeysController;
 import com.tilldawn.model.Game;
+import com.tilldawn.model.PumpkinMonster;
 import com.tilldawn.model.TreeMonster;
 
 public class GameView implements Screen, InputProcessor {
@@ -34,6 +32,7 @@ public class GameView implements Screen, InputProcessor {
     private Texture mapTexture;
     private Sprite mapSprite;
     private ShaderProgram grayscaleShader;
+    Pixmap pixmap = new Pixmap(Gdx.files.internal("sprite/T/T_CursorSprite.png"));
 
     public GameView(GameController controller, Skin skin, Game game) {
         this.controller = controller;
@@ -43,6 +42,12 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void show() {
+
+
+        Cursor customCursor = Gdx.graphics.newCursor(pixmap, 0, 0); // نقطه فعال: بالا چپ
+        Gdx.graphics.setCursor(customCursor);
+        pixmap.dispose();
+        // Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
         ShaderProgram.pedantic = false;
         grayscaleShader = new ShaderProgram(Gdx.files.internal("vertex.glsl"), Gdx.files.internal("fragment.glsl"));
@@ -62,6 +67,8 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
+
+        game.update(delta);
 
         if (App.getApp().isBlackAndWhiteMode()) {
             ScreenUtils.clear(0, 0, 0, 1);
@@ -97,6 +104,11 @@ public class GameView implements Screen, InputProcessor {
             for (TreeMonster tree : game.getTreeMonsters()) {
                 tree.update(delta);
                 tree.render(delta);
+            }
+
+            for (PumpkinMonster monster : game.getPumpkinMonsters()) {
+                monster.update(delta, controller.getPlayerController().getPlayer());
+                monster.render(Main.getBatch());
             }
 
             Main.getBatch().end();
@@ -135,6 +147,11 @@ public class GameView implements Screen, InputProcessor {
             for (TreeMonster tree : game.getTreeMonsters()) {
                 tree.update(delta);
                 tree.render(delta);
+            }
+
+            for (PumpkinMonster monster : game.getPumpkinMonsters()) {
+                monster.update(delta, controller.getPlayerController().getPlayer());
+                monster.render(Main.getBatch());
             }
 
             Main.getBatch().end();

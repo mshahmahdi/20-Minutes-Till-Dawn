@@ -3,6 +3,8 @@ package com.tilldawn.controller;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.tilldawn.model.*;
 import com.tilldawn.view.GameView;
 
@@ -12,6 +14,7 @@ public class GameController {
     private PlayerController playerController;
     private WeaponController weaponController;
 
+    private float tentacleSpawnTimer = 0;
 
     public GameController(Game game) {
         this.game = game;
@@ -25,9 +28,22 @@ public class GameController {
 
     public void updateGame(float delta, OrthographicCamera camera, Sprite mapSprite) {
         if (view != null) {
+            tentacleSpawnTimer += delta;
+
             playerController.update(delta, camera, mapSprite);
             weaponController.update(playerController.getPlayer().getPosX(), playerController.getPlayer().getPosY(), delta);
+
+            if (TimeUtils.timeSinceMillis((long) game.getElapsedTime()) > 30000) { // بعد از ثانیه ۳۰
+                if (tentacleSpawnTimer >= 3f) {
+                    tentacleSpawnTimer = 0;
+                    float x = MathUtils.random(0, mapSprite.getWidth() - 64);
+                    float y = MathUtils.random(0, mapSprite.getHeight() - 64);
+                    game.getPumpkinMonsters().add(new PumpkinMonster(x, y));
+                }
+            }
         }
+
+
     }
 
     public PlayerController getPlayerController() {
