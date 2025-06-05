@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Weapon {
     public Game game;
-    private final Texture smgTexture;
+    private final Texture Texture;
     private Sprite spriteWeapon;
     private int ammoMax;
     private int ammo;
@@ -15,11 +15,12 @@ public class Weapon {
     private float reloadTimer = 0f;
     private float reloadDuration = 1f; // 1 ثانیه
     private Sound reloadSound;
+    private Sound reloadSound2;
 
 
     public Weapon(Game game, Texture smgTexture, int ammo) {
-        this.smgTexture = smgTexture;
-        this.spriteWeapon = new Sprite(this.smgTexture);
+        this.Texture = smgTexture;
+        this.spriteWeapon = new Sprite(this.Texture);
         spriteWeapon.setX((float) Gdx.graphics.getWidth() / 2 );
         spriteWeapon.setY((float) Gdx.graphics.getHeight() / 2);
         spriteWeapon.setSize(50,50);
@@ -27,6 +28,7 @@ public class Weapon {
         this.ammo = ammo;
         this.ammoMax = ammo;
         this.reloadSound = Gdx.audio.newSound(Gdx.files.internal("sounds/1911-reload-6248.mp3"));
+        this.reloadSound2 = Gdx.audio.newSound(Gdx.files.internal("musics/pump-action-shotgun-101896.mp3"));
     }
 
 
@@ -44,8 +46,13 @@ public class Weapon {
     public void startReload() {
         if (!isReloading) {
             isReloading = true;
+            if (game.getGunNumber() == 1 && App.getApp().isSoundEffect()) {
+                reloadSound2.play();
+            } else if (App.getApp().isSoundEffect()) {
+                reloadSound.play();
+            }
+
             reloadTimer = 0;
-            reloadSound.play();
         }
     }
 

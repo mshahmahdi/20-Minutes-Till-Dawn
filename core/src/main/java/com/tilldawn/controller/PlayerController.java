@@ -7,11 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.tilldawn.Main;
 import com.tilldawn.model.Enums.KeysController;
 import com.tilldawn.model.Game;
 import com.tilldawn.model.MenuGameAssetManager;
 import com.tilldawn.model.Player;
+import com.tilldawn.model.TreeMonster;
 
 public class PlayerController {
     public Game game;
@@ -47,6 +49,25 @@ public class PlayerController {
         if (player.isPlayerIdle()) {
             idleAnimation();
         }
+
+        for (TreeMonster tree : game.getTreeMonsters()) {
+            if (tree.getRect().collidesWith(player.getRect())) {
+                player.takeDamage(1);
+                System.out.println(player.getPlayerHealth());// دمیج بخوره
+            }
+        }
+
+        if (player.isInvincible()) {
+            player.setInvincibleTimer(player.getInvincibleTimer() - delta);
+            if (player.getInvincibleTimer() <= 0) {
+                player.setInvincible(false);
+            }
+        }
+
+        player.getRect().move(
+            player.getPosX() - player.getPlayerSprite().getWidth() / 2f,
+            player.getPosY() - player.getPlayerSprite().getHeight() / 2f
+        );
 
         handlePlayerInput(delta);
     }

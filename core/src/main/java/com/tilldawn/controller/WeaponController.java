@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.tilldawn.Main;
+import com.tilldawn.model.App;
 import com.tilldawn.model.Bullet;
 import com.tilldawn.model.Weapon;
 
@@ -67,8 +68,11 @@ public class WeaponController {
 
     public void handleWeaponShoot(int screenX, int screenY, Camera camera, boolean isShotgun) {
         if (weapon.isReloading()) return;
-        if (weapon.getAmmo() <= 0) {
+        if (weapon.getAmmo() <= 0 && !App.getApp().isAutoReload()) {
             return;
+        }
+        if (App.getApp().isAutoReload() && weapon.getAmmo() <= 0) {
+            weapon.startReload();
         }
         Sprite weaponSprite = weapon.getSpriteWeapon();
         float bulletStartX = weaponSprite.getX() + weaponSprite.getWidth() / 2;
@@ -88,11 +92,15 @@ public class WeaponController {
                 bullets.add(new Bullet(bulletStartX, bulletStartY, rotatedDirection));
             }
             weapon.setAmmo(weapon.getAmmo() - pelletCount);
-            gunShotGunSound.play(1.0f); // حجم ۱.۰ یعنی صدای کامل
+            if (App.getApp().isSoundEffect()) {
+                gunShotGunSound.play(1.0f); // حجم ۱.۰ یعنی صدای کامل
+            }
         } else {
             bullets.add(new Bullet(bulletStartX, bulletStartY, baseDirection));
             weapon.setAmmo(weapon.getAmmo() - 1);
-            gunShotSound.play(1.0f); // حجم ۱.۰ یعنی صدای کامل
+            if (App.getApp().isSoundEffect()) {
+                gunShotSound.play(1.0f); // حجم ۱.۰ یعنی صدای کامل
+            }
         }
     }
 

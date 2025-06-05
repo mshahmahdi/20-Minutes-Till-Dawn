@@ -53,6 +53,8 @@ public class MenuGameAssetManager {
     public final Image scarletHero = new Image(new Texture(Gdx.files.internal("sprite/T/T_Scarlett_Portrait.png")));
     public final Image shanaHero = new Image(new Texture(Gdx.files.internal("sprite/T/T_Shana_Portrait.png")));
 
+    public final Image mapImage = new Image(new Texture(Gdx.files.internal("map/map (4).png")));
+
     public final Animation<Texture> hero1_idl = new Animation<>(0.1f, new Texture("Heros/Dasher/idle/Idle_0 #8325.png"),
         new Texture("Heros/Dasher/idle/Idle_1 #8355.png"),
         new Texture("Heros/Dasher/idle/Idle_2 #8814.png"),
@@ -83,6 +85,10 @@ public class MenuGameAssetManager {
         new Texture("Heros/Shana/idle/Idle_3 #8457.png"),
         new Texture("Heros/Shana/idle/Idle_4 #8318.png"),
         new Texture("Heros/Shana/idle/Idle_5 #8307.png"));
+
+    public final Animation<Texture> TreeMonster = new Animation<>(0.5f, new Texture("tree_monster/T_TreeMonster_0.png"),
+        new Texture("tree_monster/T_TreeMonster_1.png"),
+        new Texture("tree_monster/T_TreeMonster_2.png"));
 
     public final Animation<TextureRegion> menuAnimation = new Animation<>(0.2f, buildMenuAnimation(), Animation.PlayMode.LOOP);
     ;

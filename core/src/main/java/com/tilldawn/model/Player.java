@@ -1,6 +1,7 @@
 package com.tilldawn.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -17,6 +18,13 @@ public class Player {
 
     private float width;
     private float height;
+
+    private boolean invincible = false; // آیا فعلاً دمیج نمی‌خوره؟
+    private float invincibleTimer = 0f; // چقدر از زمان بی‌دفاع بودن مونده؟
+    private final float INVINCIBLE_DURATION = 1f;
+    private final Sound damageSound;
+
+    private float lastHitTime = 0;
 
     public float getSpeed() {
         return speed;
@@ -35,6 +43,7 @@ public class Player {
         rect = new CollisionRect((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight(), playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
         this.width = setWidth();
         this.height = setHeight();
+        this.damageSound = Gdx.audio.newSound(Gdx.files.internal("musics/punch-140236.mp3"));
     }
 
     public Texture getPlayerTexture() {
@@ -47,6 +56,14 @@ public class Player {
 
     public Sprite getPlayerSprite() {
         return playerSprite;
+    }
+
+    public float getLastHitTime() {
+        return lastHitTime;
+    }
+
+    public void setLastHitTime(float time) {
+        lastHitTime = time;
     }
 
     public void setPlayerSprite(Sprite playerSprite) {
@@ -71,6 +88,26 @@ public class Player {
 
     public float getPlayerHealth() {
         return playerHealth;
+    }
+
+    public boolean isInvincible() {
+        return invincible;
+    }
+
+    public float getInvincibleTimer() {
+        return invincibleTimer;
+    }
+
+    public float getINVINCIBLE_DURATION() {
+        return INVINCIBLE_DURATION;
+    }
+
+    public void setInvincibleTimer(float invincibleTimer) {
+        this.invincibleTimer = invincibleTimer;
+    }
+
+    public void setInvincible(boolean invincible) {
+        this.invincible = invincible;
     }
 
     public void setPlayerHealth(float playerHealth) {
@@ -170,4 +207,16 @@ public class Player {
         }
     }
 
+    public void takeDamage(float damage) {
+        if (!invincible) {
+            playerHealth -= damage;
+            invincible = true;
+            invincibleTimer = INVINCIBLE_DURATION;
+            // اینجا می‌تونی یه صدا یا افکت هم بزاری مثلاً:
+            if (App.getApp().isSoundEffect()) {
+                damageSound.play(1.0f);
+            }
+            // playDamageSound();
+        }
+    }
 }

@@ -4,18 +4,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.controller.GameController;
 import com.tilldawn.Main;
+import com.tilldawn.controller.MainMenuController;
+import com.tilldawn.model.App;
 import com.tilldawn.model.Enums.KeysController;
 import com.tilldawn.model.Game;
+import com.tilldawn.model.TreeMonster;
 
 public class GameView implements Screen, InputProcessor {
     public Game game;
@@ -24,6 +33,7 @@ public class GameView implements Screen, InputProcessor {
     public OrthographicCamera camera;
     private Texture mapTexture;
     private Sprite mapSprite;
+    private ShaderProgram grayscaleShader;
 
     public GameView(GameController controller, Skin skin, Game game) {
         this.controller = controller;
@@ -33,6 +43,13 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void show() {
+
+        ShaderProgram.pedantic = false;
+        grayscaleShader = new ShaderProgram(Gdx.files.internal("vertex.glsl"), Gdx.files.internal("fragment.glsl"));
+        if (!grayscaleShader.isCompiled()) {
+            System.err.println("Shader compile error: " + grayscaleShader.getLog());
+        }
+
         mapTexture = new Texture("map/map (4).png");
         mapSprite = new Sprite(mapTexture);
         mapSprite.setPosition(0, 0);
@@ -40,35 +57,90 @@ public class GameView implements Screen, InputProcessor {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(this);
+
     }
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0, 1);
-        Main.getBatch().setProjectionMatrix(camera.combined);
-        Main.getBatch().begin();
-        // جلوگیری از اینکه دوربین از لبه‌های نقشه بزنه بیرون
-        float cameraHalfWidth = camera.viewportWidth / 2f;
-        float cameraHalfHeight = camera.viewportHeight / 2f;
 
-        camera.position.x = MathUtils.clamp(
-            camera.position.x,
-            cameraHalfWidth,
-            mapSprite.getWidth() - cameraHalfWidth
-        );
-        camera.position.y = MathUtils.clamp(
-            camera.position.y,
-            cameraHalfHeight,
-            mapSprite.getHeight() - cameraHalfHeight
-        );
-        // به‌روزرسانی دوربین
-        camera.update();
-        mapSprite.draw(Main.getBatch());
-        controller.updateGame(delta, camera, mapSprite);
-        Main.getBatch().end();
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        stage.draw();
+        if (App.getApp().isBlackAndWhiteMode()) {
+            ScreenUtils.clear(0, 0, 0, 1);
 
+            // تنظیم ماتریس دوربین برای batch
+            Main.getBatch().setProjectionMatrix(camera.combined);
+
+            // فعال کردن شیدر سیاه‌وسفید
+            Main.getBatch().setShader(grayscaleShader);
+
+            // جلوگیری از اینکه دوربین از لبه‌های نقشه بزنه بیرون
+            float cameraHalfWidth = camera.viewportWidth / 2f;
+            float cameraHalfHeight = camera.viewportHeight / 2f;
+
+            camera.position.x = MathUtils.clamp(
+                camera.position.x,
+                cameraHalfWidth,
+                mapSprite.getWidth() - cameraHalfWidth
+            );
+            camera.position.y = MathUtils.clamp(
+                camera.position.y,
+                cameraHalfHeight,
+                mapSprite.getHeight() - cameraHalfHeight
+            );
+            camera.update();
+
+            Main.getBatch().begin();
+
+            // رسم همه چیز به صورت سیاه و سفید
+            mapSprite.draw(Main.getBatch());
+            controller.updateGame(delta, camera, mapSprite);
+
+            for (TreeMonster tree : game.getTreeMonsters()) {
+                tree.update(delta);
+                tree.render(delta);
+            }
+
+            Main.getBatch().end();
+
+            // غیرفعال کردن شیدر برای رسم UI رنگی
+            Main.getBatch().setShader(null);
+
+            // رسم stage (که ممکنه شامل دکمه‌ها و متن‌های رنگی باشه)
+            stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+            stage.draw();
+
+
+        } else {
+            ScreenUtils.clear(0, 0, 0, 1);
+            Main.getBatch().setProjectionMatrix(camera.combined);
+            Main.getBatch().begin();
+            // جلوگیری از اینکه دوربین از لبه‌های نقشه بزنه بیرون
+            float cameraHalfWidth = camera.viewportWidth / 2f;
+            float cameraHalfHeight = camera.viewportHeight / 2f;
+
+            camera.position.x = MathUtils.clamp(
+                camera.position.x,
+                cameraHalfWidth,
+                mapSprite.getWidth() - cameraHalfWidth
+            );
+            camera.position.y = MathUtils.clamp(
+                camera.position.y,
+                cameraHalfHeight,
+                mapSprite.getHeight() - cameraHalfHeight
+            );
+            // به‌روزرسانی دوربین
+            camera.update();
+            mapSprite.draw(Main.getBatch());
+            controller.updateGame(delta, camera, mapSprite);
+
+            for (TreeMonster tree : game.getTreeMonsters()) {
+                tree.update(delta);
+                tree.render(delta);
+            }
+
+            Main.getBatch().end();
+            stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+            stage.draw();
+        }
     }
 
     @Override

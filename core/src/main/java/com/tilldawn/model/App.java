@@ -28,6 +28,7 @@ public class App {
             app.music = MenuGameAssetManager.getMenuGameAssetManager().music3;
             app.autoReload = false;
             app.blackAndWhiteMode = false;
+            app.soundEffect = true;
         }
         return app;
     }

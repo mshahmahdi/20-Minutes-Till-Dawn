@@ -55,7 +55,8 @@ public class PregameMenuController {
                         view.getTimeSelection().getSelectedIndex(),
                         view.getHeroesSelect().getSelectedIndex(),
                         view.getGunesSelect().getSelectedIndex());
-
+                    newGame.initTrees(MenuGameAssetManager.getMenuGameAssetManager().mapImage.getWidth(),
+                        MenuGameAssetManager.getMenuGameAssetManager().mapImage.getHeight());
                     app.setCurrentGameId(app.getCurrentGameId() + 1);
                     app.setCurrentGame(newGame);
                     app.getLoggedInUser().setCurrentGame(newGame);
