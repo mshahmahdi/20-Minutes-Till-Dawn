@@ -53,6 +53,37 @@ public class MenuGameAssetManager {
     public final Image scarletHero = new Image(new Texture(Gdx.files.internal("sprite/T/T_Scarlett_Portrait.png")));
     public final Image shanaHero = new Image(new Texture(Gdx.files.internal("sprite/T/T_Shana_Portrait.png")));
 
+    public final Animation<Texture> hero1_idl = new Animation<>(0.1f, new Texture("Heros/Dasher/idle/Idle_0 #8325.png"),
+        new Texture("Heros/Dasher/idle/Idle_1 #8355.png"),
+        new Texture("Heros/Dasher/idle/Idle_2 #8814.png"),
+        new Texture("Heros/Dasher/idle/Idle_3 #8452.png"),
+        new Texture("Heros/Dasher/idle/Idle_4 #8313.png"),
+        new Texture("Heros/Dasher/idle/Idle_5 #8302.png"));
+    public final Animation<Texture> hero2_idl = new Animation<>(0.1f, new Texture("Heros/Diamond/idle/Idle_0 #8328.png"),
+        new Texture("Heros/Diamond/idle/Idle_1 #8358.png"),
+        new Texture("Heros/Diamond/idle/Idle_2 #8817.png"),
+        new Texture("Heros/Diamond/idle/Idle_3 #8455.png"),
+        new Texture("Heros/Diamond/idle/Idle_4 #8316.png"),
+        new Texture("Heros/Diamond/idle/Idle_5 #8305.png"));
+    public final Animation<Texture> hero3_idl = new Animation<>(0.1f, new Texture("Heros/Lilith/idle/Idle_0 #8333.png"),
+        new Texture("Heros/Lilith/idle/Idle_1 #8363.png"),
+        new Texture("Heros/Lilith/idle/Idle_2 #8822.png"),
+        new Texture("Heros/Lilith/idle/Idle_3 #8460.png"),
+        new Texture("Heros/Lilith/idle/Idle_4 #8321.png"),
+        new Texture("Heros/Lilith/idle/Idle_5 #8310.png"));
+    public final Animation<Texture> hero4_idl = new Animation<>(0.1f, new Texture("Heros/Scarlet/idle/Idle_0 #8327.png"),
+        new Texture("Heros/Scarlet/idle/Idle_1 #8357.png"),
+        new Texture("Heros/Scarlet/idle/Idle_2 #8816.png"),
+        new Texture("Heros/Scarlet/idle/Idle_3 #8454.png"),
+        new Texture("Heros/Scarlet/idle/Idle_4 #8315.png"),
+        new Texture("Heros/Scarlet/idle/Idle_5 #8304.png"));
+    public final Animation<Texture> hero5_idl = new Animation<>(0.1f, new Texture("Heros/Shana/idle/Idle_0 #8330.png"),
+        new Texture("Heros/Shana/idle/Idle_1 #8360.png"),
+        new Texture("Heros/Shana/idle/Idle_2 #8819.png"),
+        new Texture("Heros/Shana/idle/Idle_3 #8457.png"),
+        new Texture("Heros/Shana/idle/Idle_4 #8318.png"),
+        new Texture("Heros/Shana/idle/Idle_5 #8307.png"));
+
     public final Animation<TextureRegion> menuAnimation = new Animation<>(0.2f, buildMenuAnimation(), Animation.PlayMode.LOOP);
     ;
 

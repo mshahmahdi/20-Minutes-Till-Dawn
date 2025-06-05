@@ -103,7 +103,7 @@ public class SettingsMenuController {
                             KeysController.SHOOT.setKey(Input.Buttons.LEFT);
                             break;
                         case 1:
-                            KeysController.SHOOT.setKey(Input.Keys.SPACE);
+                            KeysController.SHOOT.setKey(Input.Keys.E);
                     }
                 }
             });

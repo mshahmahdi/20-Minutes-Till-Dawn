@@ -19,7 +19,7 @@ import com.tilldawn.Main;
 import com.tilldawn.controller.MainMenuController;
 import com.tilldawn.model.App;
 import com.tilldawn.model.MenuGameAssetManager;
-import com.tilldawn.model.Player;
+import com.tilldawn.model.User;
 
 public class MainMenuView implements Screen {
     private float stateTime = 0.0f;
@@ -44,14 +44,14 @@ public class MainMenuView implements Screen {
     private final FrameBuffer fbo;
     private final TextureRegion fboRegion;
     private final MainMenuController controller;
-    Player player = App.getApp().getLoggedInPlayer();
+    User user = App.getApp().getLoggedInUser();
 
     public MainMenuView(MainMenuController controller, Skin skin) {
         this.controller = controller;
         this.gameTitle = new Image(new Texture("sprite/T/T_20Logo.png"));
-        this.avatar = player.getAvatar();
-        this.usernameLabel = new Label("Username : " + player.getUsername(), skin);
-        this.scoreLabel = new Label("Score : " + player.getScore(), skin);
+        this.avatar = user.getAvatar();
+        this.usernameLabel = new Label("Username : " + user.getUsername(), skin);
+        this.scoreLabel = new Label("Score : " + user.getScore(), skin);
         this.continueButton = new TextButton("Continue Last Game", skin);
         this.newGameButton = new TextButton("New Game", skin);
         this.settingsButton = new TextButton("Settings", skin);

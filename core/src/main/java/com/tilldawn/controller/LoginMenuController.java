@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.tilldawn.Main;
 import com.tilldawn.model.App;
 import com.tilldawn.model.MenuGameAssetManager;
-import com.tilldawn.model.Player;
+import com.tilldawn.model.User;
 import com.tilldawn.view.ForgetPasswordView;
 import com.tilldawn.view.LoginMenuView;
 import com.tilldawn.view.MainMenuView;
@@ -41,7 +41,7 @@ public class LoginMenuController {
                     view.getLoginButton().setChecked(false);
                 } else {
                     App app = App.getApp();
-                    app.setLoggedInPlayer(getUserByUsername(username));
+                    app.setLoggedInUser(getUserByUsername(username));
                     Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
                 }
             } else if (view.getForgetPasswordButton().isChecked()) {
@@ -62,19 +62,19 @@ public class LoginMenuController {
 
     private boolean isUsernameExist(String username) {
         App app = App.getApp();
-        for (Player player : app.getPlayers()) {
-            if (player.getUsername().equals(username)) {
+        for (User user : app.getUsers()) {
+            if (user.getUsername().equals(username)) {
                 return true;
             }
         }
         return false;
     }
 
-    private Player getUserByUsername(String username) {
+    private User getUserByUsername(String username) {
         App app = App.getApp();
-        for (Player player : app.getPlayers()) {
-            if (player.getUsername().equals(username)) {
-                return player;
+        for (User user : app.getUsers()) {
+            if (user.getUsername().equals(username)) {
+                return user;
             }
         }
         return null;

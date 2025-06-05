@@ -1,11 +1,6 @@
 package com.tilldawn.view;
 
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.tilldawn.Main;
@@ -13,7 +8,7 @@ import com.tilldawn.controller.MainMenuController;
 import com.tilldawn.controller.ScoreboardMenuView;
 import com.tilldawn.model.App;
 import com.tilldawn.model.MenuGameAssetManager;
-import com.tilldawn.model.Player;
+import com.tilldawn.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -96,32 +91,32 @@ public class ScoreboardMenuController {
 
     public static ArrayList<String> getUsernames() {
         ArrayList<String> usernames = new ArrayList<>();
-        for (Player player : App.getApp().getPlayers()) {
-            usernames.add(player.getUsername());
+        for (User user : App.getApp().getUsers()) {
+            usernames.add(user.getUsername());
         }
         return usernames;
     }
 
     public static ArrayList<Integer> getScores() {
         ArrayList<Integer> scores = new ArrayList<>();
-        for (Player player : App.getApp().getPlayers()) {
-            scores.add(player.getScore());
+        for (User user : App.getApp().getUsers()) {
+            scores.add(user.getScore());
         }
         return scores;
     }
 
     public static ArrayList<Integer> getKills() {
         ArrayList<Integer> kills = new ArrayList<>();
-        for (Player player : App.getApp().getPlayers()) {
-            kills.add(player.getKills());
+        for (User user : App.getApp().getUsers()) {
+            kills.add(user.getKills());
         }
         return kills;
     }
 
     public static ArrayList<Integer> getSurvivedTimes() {
         ArrayList<Integer> survivedTimes = new ArrayList<>();
-        for (Player player : App.getApp().getPlayers()) {
-            survivedTimes.add(player.getLongestSurvivalTime());
+        for (User user : App.getApp().getUsers()) {
+            survivedTimes.add(user.getLongestSurvivalTime());
         }
         return survivedTimes;
     }
@@ -129,9 +124,9 @@ public class ScoreboardMenuController {
     public static ArrayList<String> sortByScore(ArrayList<Integer> scores) {
         ArrayList<String> sorted = new ArrayList<>();
         for (Integer score : scores) {
-            for (Player player : App.getApp().getPlayers()) {
-                if (player.getScore() == score) {
-                    sorted.add(player.getUsername());
+            for (User user : App.getApp().getUsers()) {
+                if (user.getScore() == score) {
+                    sorted.add(user.getUsername());
                 }
             }
         }
@@ -141,9 +136,9 @@ public class ScoreboardMenuController {
     public static ArrayList<String> sortByKills(ArrayList<Integer> kills) {
         ArrayList<String> sorted = new ArrayList<>();
         for (Integer kill : kills) {
-            for (Player player : App.getApp().getPlayers()) {
-                if (player.getKills() == kill) {
-                    sorted.add(player.getUsername());
+            for (User user : App.getApp().getUsers()) {
+                if (user.getKills() == kill) {
+                    sorted.add(user.getUsername());
                 }
             }
         }
@@ -153,9 +148,9 @@ public class ScoreboardMenuController {
     public static ArrayList<String> sortBySurvivedTime(ArrayList<Integer> survivedTimes) {
         ArrayList<String> sorted = new ArrayList<>();
         for (Integer survivedTime : survivedTimes) {
-            for (Player player : App.getApp().getPlayers()) {
-                if (player.getLongestSurvivalTime() == survivedTime) {
-                    sorted.add(player.getUsername());
+            for (User user : App.getApp().getUsers()) {
+                if (user.getLongestSurvivalTime() == survivedTime) {
+                    sorted.add(user.getUsername());
                 }
             }
         }

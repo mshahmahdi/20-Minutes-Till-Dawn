@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.tilldawn.controller.*;
 import com.tilldawn.model.App;
 import com.tilldawn.model.MenuGameAssetManager;
-import com.tilldawn.model.Player;
-import com.tilldawn.model.game;
+import com.tilldawn.model.User;
 import com.tilldawn.view.*;
 
 import java.util.ArrayList;
@@ -20,19 +19,20 @@ public class Main extends Game {
     public void create() {
         main = this;
         batch = new SpriteBatch();
-        App.getApp().setLoggedInPlayer(new Player("mostafa", "paSS12#$", "salam"));
-        App.getApp().addUser(App.getApp().getLoggedInPlayer());
-        App.getApp().getLoggedInPlayer().setCurrentGame(new game(1, App.getApp().getLoggedInPlayer()));
+        App.getApp().setLoggedInUser(new User("mostafa", "paSS12#$", "salam"));
+        App.getApp().addUser(App.getApp().getLoggedInUser());
+        //App.getApp().getLoggedInUser().setCurrentGame(new Game(1, App.getApp().getLoggedInUser()));
         for (int i = 0; i < 9; i++) {
-            App.getApp().setLoggedInPlayer(new Player(randomName(), "paSS12#$", "salam"));
-            App.getApp().addUser(App.getApp().getLoggedInPlayer());
+            App.getApp().setLoggedInUser(new User(randomName(), "paSS12#$", "salam"));
+            App.getApp().addUser(App.getApp().getLoggedInUser());
         }
-        SignupMenuController.setAvatar(App.getApp().getLoggedInPlayer());
-        getMain().setScreen(new TalentMenuView(new TalentMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
+        SignupMenuController.setAvatar(App.getApp().getLoggedInUser());
+        //getMain().setScreen(new PregameMenuView(new PregameMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
+        //getMain().setScreen(new TalentMenuView(new TalentMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new ScoreboardMenuView(new ScoreboardMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin(), getUsernames()));
         //getMain().setScreen(new ProfileMenuView(new ProfileMenuController(),MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new SettingsMenuView(new SettingsMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
-        //getMain().setScreen(new MainMenuView(new MainMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
+        getMain().setScreen(new MainMenuView(new MainMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new ForgetPasswordView(new ForgetPasswordMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new LoginMenuView(new LoginMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new SignupMenuView(new SignupMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
@@ -76,8 +76,8 @@ public class Main extends Game {
 
     private ArrayList<String> getUsernames() {
         ArrayList<String> usernames = new ArrayList<>();
-        for (Player player : App.getApp().getPlayers()) {
-            usernames.add(player.getUsername());
+        for (User user : App.getApp().getUsers()) {
+            usernames.add(user.getUsername());
         }
         return usernames;
     }

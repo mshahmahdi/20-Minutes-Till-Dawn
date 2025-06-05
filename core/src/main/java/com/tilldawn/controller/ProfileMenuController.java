@@ -11,7 +11,7 @@ import com.tilldawn.Main;
 import com.tilldawn.model.App;
 import com.tilldawn.model.Enums.SignupMenuCommands;
 import com.tilldawn.model.MenuGameAssetManager;
-import com.tilldawn.model.Player;
+import com.tilldawn.model.User;
 import com.tilldawn.model.Service.ProfileModel;
 import com.tilldawn.view.MainMenuView;
 import com.tilldawn.view.ProfileMenuView;
@@ -39,7 +39,7 @@ public class ProfileMenuController {
                             view.getChangeUsernameMessage().setText("username can not be empty");
                             view.getChangeUsernameButton().setChecked(false);
                             //view.getChangeUsernameField().getText()Field.setText("enter your new username");
-                        } else if (view.getChangeUsernameField().getText().equals(App.getApp().getLoggedInPlayer().getUsername())) {
+                        } else if (view.getChangeUsernameField().getText().equals(App.getApp().getLoggedInUser().getUsername())) {
                             cleanMessage();
                             view.getChangeUsernameMessage().setText("This is your current username.");
                             view.getChangeUsernameButton().setChecked(false);
@@ -51,8 +51,8 @@ public class ProfileMenuController {
                             // usernameField.setText("enter your new username");
                         } else {
                             cleanMessage();
-                            getPlayerByUsername(App.getApp().getLoggedInPlayer().getUsername()).setUsername(view.getChangeUsernameField().getText());
-                            view.getCurrentUsername().setText("Current username: " + App.getApp().getLoggedInPlayer().getUsername());
+                            getPlayerByUsername(App.getApp().getLoggedInUser().getUsername()).setUsername(view.getChangeUsernameField().getText());
+                            view.getCurrentUsername().setText("Current username: " + App.getApp().getLoggedInUser().getUsername());
                             view.getChangeUsernameButton().setChecked(false);
                             //usernameField.setText("enter your new username");
                         }
@@ -70,7 +70,7 @@ public class ProfileMenuController {
                             cleanMessage();
                             view.getChangePasswordMessage().setText("password can not be empty");
                             view.getChangePasswordButton().setChecked(false);
-                        } else if (view.getChangePasswordField().getText().equals(App.getApp().getLoggedInPlayer().getPassword())) {
+                        } else if (view.getChangePasswordField().getText().equals(App.getApp().getLoggedInUser().getPassword())) {
                             cleanMessage();
                             view.getChangePasswordMessage().setText("This is your current password.");
                             view.getChangePasswordButton().setChecked(false);
@@ -81,8 +81,8 @@ public class ProfileMenuController {
                         } else {
                             App app = App.getApp();
                             cleanMessage();
-                            getPlayerByUsername(app.getLoggedInPlayer().getUsername()).setPassword(view.getChangePasswordField().getText());
-                            view.getChangePasswordMessage().setText("Current password: " + App.getApp().getLoggedInPlayer().getPassword());
+                            getPlayerByUsername(app.getLoggedInUser().getUsername()).setPassword(view.getChangePasswordField().getText());
+                            view.getChangePasswordMessage().setText("Current password: " + App.getApp().getLoggedInUser().getPassword());
                             view.getChangePasswordButton().setChecked(false);
                         }
                     }
@@ -95,28 +95,28 @@ public class ProfileMenuController {
                     String selectedAvatar = view.getAvatarsSelectBox().getSelected();
                     switch (selectedAvatar) {
                         case "Avatar1":
-                            App.getApp().getLoggedInPlayer().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar1);
+                            App.getApp().getLoggedInUser().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar1);
                             view.getCurrentAvatarImage().setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("sprite/T/T_Dasher_Portrait.png"))));
                             ;
                             break;
                         case "Avatar2":
-                            App.getApp().getLoggedInPlayer().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar2);
+                            App.getApp().getLoggedInUser().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar2);
                             view.getCurrentAvatarImage().setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("sprite/T/T_Diamond_Portrait.png"))));
                             break;
                         case "Avatar3":
-                            App.getApp().getLoggedInPlayer().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar3);
+                            App.getApp().getLoggedInUser().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar3);
                             view.getCurrentAvatarImage().setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("sprite/T/T_Lilith_Portrait.png"))));
                             break;
                         case "Avatar4":
-                            App.getApp().getLoggedInPlayer().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar4);
+                            App.getApp().getLoggedInUser().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar4);
                             view.getCurrentAvatarImage().setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("sprite/T/T_Scarlett_Portrait.png"))));
                             break;
                         case "Avatar5":
-                            App.getApp().getLoggedInPlayer().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar5);
+                            App.getApp().getLoggedInUser().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar5);
                             view.getCurrentAvatarImage().setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("avatars/Avatar5.png"))));
                             break;
                         case "Avatar6":
-                            App.getApp().getLoggedInPlayer().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar6);
+                            App.getApp().getLoggedInUser().setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar6);
                             view.getCurrentAvatarImage().setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture("assets/avatars/Avatar6.png"))));
                             break;
                     }
@@ -138,8 +138,8 @@ public class ProfileMenuController {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
                     if (view.getDeleteAccountButton().isChecked()) {
-                        app.getPlayers().remove(getPlayerByUsername(app.getLoggedInPlayer().getUsername()));
-                        app.setLoggedInPlayer(null);
+                        app.getUsers().remove(getPlayerByUsername(app.getLoggedInUser().getUsername()));
+                        app.setLoggedInUser(null);
                         app.setBlackAndWhiteMode(false);
                         app.setAutoReload(false);
                         app.setCurrentGame(null);
@@ -160,26 +160,26 @@ public class ProfileMenuController {
     }
 
     private boolean isUsernameExist(String username) {
-        for (Player player : App.getApp().getPlayers()) {
-            if (player.getUsername().equals(username)) {
+        for (User user : App.getApp().getUsers()) {
+            if (user.getUsername().equals(username)) {
                 return true;
             }
         }
         return false;
     }
 
-    private Player getPlayerByUsername(String username) {
-        for (Player player : App.getApp().getPlayers()) {
-            if (player.getUsername().equals(username)) {
-                return player;
+    private User getPlayerByUsername(String username) {
+        for (User user : App.getApp().getUsers()) {
+            if (user.getUsername().equals(username)) {
+                return user;
             }
         }
         return null;
     }
 
     private int getPlayerIndex(String username) {
-        for (int i = 0; i < App.getApp().getPlayers().size(); i++) {
-            if (App.getApp().getPlayers().get(i).getUsername().equals(username)) {
+        for (int i = 0; i < App.getApp().getUsers().size(); i++) {
+            if (App.getApp().getUsers().get(i).getUsername().equals(username)) {
                 return i;
             }
         }

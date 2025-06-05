@@ -17,8 +17,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.Main;
 import com.tilldawn.model.App;
 import com.tilldawn.model.MenuGameAssetManager;
-import com.tilldawn.model.Player;
-import com.tilldawn.view.ProfileMenuView;
+import com.tilldawn.model.User;
 import com.tilldawn.view.ScoreboardMenuController;
 
 import java.util.ArrayList;
@@ -120,7 +119,7 @@ public class ScoreboardMenuView implements Screen {
             kills.setFontScale(rowFontScale);
             surviveTime.setFontScale(rowFontScale);
 
-            if (App.getApp().getLoggedInPlayer().getUsername().equals(usernames.get(i))) {
+            if (App.getApp().getLoggedInUser().getUsername().equals(usernames.get(i))) {
                 // رنگ خاص برای یوزر لاگین‌شده
                 Color currentUserColor = Color.valueOf("94D2BD"); // سبز نعنایی آرام
                 count.setColor(currentUserColor);
@@ -260,10 +259,10 @@ public class ScoreboardMenuView implements Screen {
 
 
 
-    private Player getPlayerByUsername(String username) {
-        for (Player player : App.getApp().getPlayers()) {
-            if (player.getUsername().equals(username)) {
-                return player;
+    private User getPlayerByUsername(String username) {
+        for (User user : App.getApp().getUsers()) {
+            if (user.getUsername().equals(username)) {
+                return user;
             }
         }
         return null;

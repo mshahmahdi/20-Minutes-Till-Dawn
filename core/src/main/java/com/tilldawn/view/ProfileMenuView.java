@@ -60,7 +60,7 @@ public class ProfileMenuView implements Screen {
     public ProfileMenuView(ProfileMenuController profileMenuController, Skin skin) {
         this.controller = profileMenuController;
         this.profileMenuLabel = new Label("Profile Menu :", skin);
-        this.currentUsername = new Label("Current Username : " + App.getApp().getLoggedInPlayer().getUsername(), skin);
+        this.currentUsername = new Label("Current Username : " + App.getApp().getLoggedInUser().getUsername(), skin);
         this.changeUsername = new Label("Change Username : ", skin);
         this.changeUsernameField = new TextField("enter your new username", skin);
         this.changeUsernameButton = new TextButton("Change Username", skin);
@@ -70,7 +70,7 @@ public class ProfileMenuView implements Screen {
         this.changePasswordButton = new TextButton("Change Password", skin);
         this.changePasswordMessage = new Label("", skin);
         this.currentAvatar = new Label("Current Avatar : ", skin);
-        this.currentAvatarImage = App.getApp().getLoggedInPlayer().getAvatar();
+        this.currentAvatarImage = App.getApp().getLoggedInUser().getAvatar();
         this.choseAvatar = new Label("Chose Avatar : ", skin);
         this.avatarsSelectBox = new SelectBox<>(skin);
         this.avatarsSelectBox.setItems("Avatar1", "Avatar2", "Avatar3", "Avatar4", "Avatar5", "Avatar6");

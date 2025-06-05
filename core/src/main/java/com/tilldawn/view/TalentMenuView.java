@@ -125,14 +125,11 @@ public class TalentMenuView implements Screen {
         } else {
             this.moveRightImage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("keys/letter-d_12233556.png"))));
         }
-        if (KeysController.SHOOT.getKey() == Input.Keys.SPACE) {
-            this.shootImage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("keys/space_12233469.png"))));
+        if (KeysController.SHOOT.getKey() == Input.Keys.E) {
+            this.shootImage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("keys/letter-e_12233559.png"))));
         } else {
             this.shootImage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("keys/mouse-clicker_6524730.png"))));
         }
-
-        // Image image = new Image(new TextureRegionDrawable(new TextureRegion(texture)));
-
         this.cheatLabel = new Label("Cheats :", skin);
         this.cheatTimeLabel = new Label("cheat Time", skin);
         this.cheatTimeImage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("keys/letter-t_12233597.png"))));
@@ -149,7 +146,7 @@ public class TalentMenuView implements Screen {
         this.damagerLabel = new Label("Damager : Weapon damage increased by 25% for 10 seconds", skin);
         this.procreaseLabel = new Label("Procrease : Adds 1 extra projectile", skin);
         this.amocreaseLabel = new Label("Amocrease : Increases max ammo by 5", skin);
-        this.speedyLabel = new Label("Speedy : Doubles player movement speed for 10 seconds", skin);
+        this.speedyLabel = new Label("Speedy : Doubles user movement speed for 10 seconds", skin);
         this.backButton = new TextButton("Back", skin);
         this.table = new Table(skin);
         this.music = App.getApp().getMusic();

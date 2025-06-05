@@ -5,7 +5,7 @@ import com.tilldawn.Main;
 import com.tilldawn.model.App;
 import com.tilldawn.model.Enums.SignupMenuCommands;
 import com.tilldawn.model.MenuGameAssetManager;
-import com.tilldawn.model.Player;
+import com.tilldawn.model.User;
 import com.tilldawn.view.ForgetPasswordView;
 import com.tilldawn.view.LoginMenuView;
 
@@ -71,19 +71,19 @@ public class ForgetPasswordMenuController {
 
     private boolean isUsernameExist(String username) {
         App app = App.getApp();
-        for (Player player : app.getPlayers()) {
-            if (player.getUsername().equals(username)) {
+        for (User user : app.getUsers()) {
+            if (user.getUsername().equals(username)) {
                 return true;
             }
         }
         return false;
     }
 
-    private Player getUserByUsername(String username) {
+    private User getUserByUsername(String username) {
         App app = App.getApp();
-        for (Player player : app.getPlayers()) {
-            if (player.getUsername().equals(username)) {
-                return player;
+        for (User user : app.getUsers()) {
+            if (user.getUsername().equals(username)) {
+                return user;
             }
         }
         return null;

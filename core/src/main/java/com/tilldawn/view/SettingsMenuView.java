@@ -98,7 +98,7 @@ public class SettingsMenuView implements Screen {
         this.autoAimeSelectBox = new SelectBox<>(skin);
         this.autoAimeSelectBox.setItems("Space Key", "F Key");
         this.controllerSelectBox2 = new SelectBox<>(skin);
-        this.controllerSelectBox2.setItems("Left Click", "Space");
+        this.controllerSelectBox2.setItems("Left Click", "E Key");
         this.autoReloadLabel = new Label("Auto Reload : ", skin);
         this.autoReloadCheckbox = new CheckBox("Auto Reload", skin);
         this.blackAndWhiteLabel = new Label("Black & White Mode :  ", skin);

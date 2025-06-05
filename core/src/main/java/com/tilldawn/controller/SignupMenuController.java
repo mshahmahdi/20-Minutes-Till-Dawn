@@ -5,7 +5,7 @@ import com.tilldawn.Main;
 import com.tilldawn.model.App;
 import com.tilldawn.model.Enums.SignupMenuCommands;
 import com.tilldawn.model.MenuGameAssetManager;
-import com.tilldawn.model.Player;
+import com.tilldawn.model.User;
 import com.tilldawn.view.LoginMenuView;
 import com.tilldawn.view.MainMenuView;
 import com.tilldawn.view.SignupMenuView;
@@ -50,11 +50,11 @@ public class SignupMenuController {
                     view.getSignupButton().setChecked(false);
                 } else {
                     App app = App.getApp();
-                    Player newPlayer = new Player(username,
+                    User newUser = new User(username,
                         password,
                         answer);
-                    setAvatar(newPlayer);
-                    app.addUser(newPlayer);
+                    setAvatar(newUser);
+                    app.addUser(newUser);
                     Main.getMain().getScreen().dispose();
                     view.getSignupButton().setChecked(true);
                     Main.getMain().setScreen(new LoginMenuView(new LoginMenuController(), skin));
@@ -64,9 +64,9 @@ public class SignupMenuController {
             view.getLoginButton().setChecked(false);
             Main.getMain().setScreen(new LoginMenuView(new LoginMenuController(),skin));
         } if (view.getGuestButton().isChecked()) {
-            App.getApp().setLoggedInPlayer(new Player("Guest", "Guest", "Guest"));
-            App.getApp().addUser(App.getApp().getLoggedInPlayer());
-            setAvatar(App.getApp().getLoggedInPlayer());
+            App.getApp().setLoggedInUser(new User("Guest", "Guest", "Guest"));
+            App.getApp().addUser(App.getApp().getLoggedInUser());
+            setAvatar(App.getApp().getLoggedInUser());
             Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
             view.getGuestButton().setChecked(false);
         }
@@ -76,8 +76,8 @@ public class SignupMenuController {
 
     private boolean isUsernameExist(String username) {
         App app = App.getApp();
-        for (Player player : app.getPlayers()) {
-            if (player.getUsername().equals(username)) {
+        for (User user : app.getUsers()) {
+            if (user.getUsername().equals(username)) {
                 return true;
             }
         }
@@ -96,20 +96,20 @@ public class SignupMenuController {
         view.getSecurityField().setText("enter answer");
     }
 
-    public static void setAvatar(Player player) {
+    public static void setAvatar(User user) {
         int num = rollDice();
         if (num == 1) {
-            player.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar1);
+            user.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar1);
         } else if (num == 2) {
-            player.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar2);
+            user.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar2);
         } else if (num == 3) {
-            player.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar3);
+            user.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar3);
         } else if (num == 4) {
-            player.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar4);
+            user.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar4);
         } else if (num == 5) {
-            player.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar5);
+            user.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar5);
         } else if (num == 6) {
-            player.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar6);
+            user.setAvatar(MenuGameAssetManager.getMenuGameAssetManager().avatar6);
         }
     }
 

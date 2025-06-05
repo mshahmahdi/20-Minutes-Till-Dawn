@@ -7,15 +7,17 @@ import java.util.ArrayList;
 public class App {
     private static App app;
 
-    private Player loggedInPlayer;
-    private Player pendingPlayer;
-    private game currentGame;
+    private User loggedInUser;
+    private User pendingUser;
+    private Game currentGame;
+
+    private int currentGameId = 101;
 
     private boolean blackAndWhiteMode;
     private Music music;
 
-    private final ArrayList<Player> players = new ArrayList<>();
-    private final ArrayList<game> games = new ArrayList<>();
+    private final ArrayList<User> users = new ArrayList<>();
+    private final ArrayList<Game> Games = new ArrayList<>();
 
     private boolean autoReload;
     private boolean soundEffect;
@@ -30,25 +32,27 @@ public class App {
         return app;
     }
 
-    public Player getLoggedInPlayer() {
-        return loggedInPlayer;
+    public User getLoggedInUser() {
+        return loggedInUser;
     }
 
-    public game getCurrentGame() {
+    public Game getCurrentGame() {
         return currentGame;
     }
 
-    public ArrayList<Player> getPlayers() { return players; }
+    public ArrayList<User> getUsers() { return users; }
 
-    public ArrayList<game> getGames() {
-        return games;
+    public ArrayList<Game> getGames() {
+        return Games;
     }
 
-    public Player getPendingUPlayer() {
-        return pendingPlayer;
+    public User getPendingUPlayer() {
+        return pendingUser;
     }
 
     public Music getMusic() { return music; }
+
+    public int getCurrentGameId() { return currentGameId; }
 
     public boolean isSoundEffect() { return soundEffect; }
 
@@ -56,16 +60,16 @@ public class App {
 
     public boolean isBlackAndWhiteMode() { return blackAndWhiteMode; }
 
-    public void setLoggedInPlayer(Player loggedInPlayer) {
-        this.loggedInPlayer = loggedInPlayer;
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
     }
 
-    public void setCurrentGame(game currentGame) {
+    public void setCurrentGame(Game currentGame) {
         this.currentGame = currentGame;
     }
 
-    public void setPendingPlayer(Player pendingPlayer) {
-        this.pendingPlayer = pendingPlayer;
+    public void setPendingPlayer(User pendingUser) {
+        this.pendingUser = pendingUser;
     }
 
     public void setMusic(Music music) {
@@ -78,13 +82,15 @@ public class App {
 
     public void setSoundEffect(boolean soundEffect) { this.soundEffect = soundEffect; }
 
+    public void setCurrentGameId(int currentGameId) { this.currentGameId = currentGameId; }
+
     // Auxiliary functions :
 
-    public void addUser(Player player) {
-        players.add(player);
+    public void addUser(User user) {
+        users.add(user);
     }
 
-    public void addGame(game game) {
-        games.add(game);
+    public void addGame(Game game) {
+        Games.add(game);
     }
 }
