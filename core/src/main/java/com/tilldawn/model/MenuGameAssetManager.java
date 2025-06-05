@@ -86,6 +86,31 @@ public class MenuGameAssetManager {
         new Texture("Heros/Shana/idle/Idle_4 #8318.png"),
         new Texture("Heros/Shana/idle/Idle_5 #8307.png"));
 
+    public final Animation<Texture> hero1_run = new Animation<>(0.1f, new Texture("Heros/Dasher/run/Run_0 #8757.png"),
+        new Texture("Heros/Dasher/run/Run_1 #8773.png"),
+        new Texture("Heros/Dasher/run/Run_2 #8281.png"),
+        new Texture("Heros/Dasher/run/Run_3 #8344.png"));
+
+    public final Animation<Texture> hero2_run = new Animation<>(0.1f, new Texture("Heros/Diamond/run/Run_0 #8760.png"),
+        new Texture("Heros/Diamond/run/Run_1 #8776.png"),
+        new Texture("Heros/Diamond/run/Run_2 #8284.png"),
+        new Texture("Heros/Diamond/run/Run_3 #8347.png"));
+
+    public final Animation<Texture> hero3_run = new Animation<>(0.1f, new Texture("Heros/Lilith/run/Run_0 #8765.png"),
+        new Texture("Heros/Lilith/run/Run_1 #8781.png"),
+        new Texture("Heros/Lilith/run/Run_2 #8289.png"),
+        new Texture("Heros/Lilith/run/Run_2 #8289.png"));
+
+    public final Animation<Texture> hero4_run = new Animation<>(0.1f, new Texture("Heros/Scarlet/run/Run_0 #8759.png"),
+        new Texture("Heros/Scarlet/run/Run_1 #8775.png"),
+        new Texture("Heros/Scarlet/run/Run_2 #8283.png"),
+        new Texture("Heros/Scarlet/run/Run_3 #8346.png"));
+
+    public final Animation<Texture> hero5_run = new Animation<>(0.1f, new Texture("Heros/Shana/run/Run_0 #8762.png"),
+        new Texture("Heros/Shana/run/Run_1 #8778.png"),
+        new Texture("Heros/Shana/run/Run_2 #8286.png"),
+        new Texture("Heros/Shana/run/Run_3 #8349.png"));
+
     public final Animation<Texture> TreeMonster = new Animation<>(0.5f, new Texture("tree_monster/T_TreeMonster_0.png"),
         new Texture("tree_monster/T_TreeMonster_1.png"),
         new Texture("tree_monster/T_TreeMonster_2.png"));
@@ -96,6 +121,10 @@ public class MenuGameAssetManager {
         new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_3.png")),
         new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_4.png")),
         new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_5.png")));
+
+    public final Animation<Texture> delete_monster = new Animation<>(0.1f, new Texture("delete monster/T_Gale_0.png"),
+        new Texture("delete monster/T_Gale_1.png"),
+        new Texture("delete monster/T_Gale_2.png"));
 
     public final Animation<TextureRegion> menuAnimation = new Animation<>(0.2f, buildMenuAnimation(), Animation.PlayMode.LOOP);
     ;

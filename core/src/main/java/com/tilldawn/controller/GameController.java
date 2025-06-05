@@ -23,7 +23,7 @@ public class GameController {
     public void setView(GameView view) {
         this.view = view;
         playerController = new PlayerController(new Player(game), view.game);
-        weaponController = new WeaponController(setWeapon());
+        weaponController = new WeaponController(setWeapon(), game.getGunNumber());
     }
 
     public void updateGame(float delta, OrthographicCamera camera, Sprite mapSprite) {
@@ -31,7 +31,8 @@ public class GameController {
             tentacleSpawnTimer += delta;
 
             playerController.update(delta, camera, mapSprite);
-            weaponController.update(playerController.getPlayer().getPosX(), playerController.getPlayer().getPosY(), delta);
+            weaponController.update(playerController.getPlayer().getPosX(), playerController.getPlayer().getPosY(),
+                delta, playerController.getPlayer());
 
             if (TimeUtils.timeSinceMillis((long) game.getElapsedTime()) > 30000) { // بعد از ثانیه ۳۰
                 if (tentacleSpawnTimer >= 3f) {

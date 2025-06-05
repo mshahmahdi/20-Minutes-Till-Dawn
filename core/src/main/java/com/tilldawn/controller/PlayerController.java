@@ -1,13 +1,11 @@
 package com.tilldawn.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.tilldawn.Main;
 import com.tilldawn.model.*;
 import com.tilldawn.model.Enums.KeysController;
@@ -45,6 +43,8 @@ public class PlayerController {
 
         if (player.isPlayerIdle()) {
             idleAnimation();
+        } else {
+            runAnimation();
         }
 
         for (TreeMonster tree : game.getTreeMonsters()) {
@@ -82,17 +82,25 @@ public class PlayerController {
 
         if (Gdx.input.isKeyPressed(KeysController.UP.getKey())) {
             player.setPosY(player.getPosY() + speed);
+            player.setPlayerIdle(false);
         }
         if (Gdx.input.isKeyPressed(KeysController.DOWN.getKey())) {
             player.setPosY(player.getPosY() - speed);
+            player.setPlayerIdle(false);
         }
         if (Gdx.input.isKeyPressed(KeysController.RIGHT.getKey())) {
             player.setPosX(player.getPosX() + speed);
             player.getPlayerSprite().setFlip(false, false); // سمت راست
+            player.setPlayerIdle(false);
         }
         if (Gdx.input.isKeyPressed(KeysController.LEFT.getKey())) {
             player.setPosX(player.getPosX() - speed);
             player.getPlayerSprite().setFlip(true, false); // سمت چپ
+            player.setPlayerIdle(false);
+        }
+        if (!Gdx.input.isKeyPressed(KeysController.LEFT.getKey()) &&
+        !Gdx.input.isKeyPressed(KeysController.RIGHT.getKey())) {
+            player.setPlayerIdle(true);
         }
     }
 
@@ -108,6 +116,19 @@ public class PlayerController {
         }
 
         animation.setPlayMode(Animation.PlayMode.LOOP);
+    }
+
+    public void runAnimation() {
+        Animation<Texture> runAnimation = setAnimationRun();
+        player.getPlayerSprite().setRegion(runAnimation.getKeyFrame(player.getTime()));
+
+        if (!runAnimation.isAnimationFinished(player.getTime())) {
+            player.setTime(player.getTime() + Gdx.graphics.getDeltaTime());
+        } else {
+            player.setTime(0);
+        }
+
+        runAnimation.setPlayMode(Animation.PlayMode.LOOP);
     }
 
     public Player getPlayer() {
@@ -130,6 +151,21 @@ public class PlayerController {
             return menu.hero4_idl;
         } else {
             return menu.hero5_idl;
+        }
+    }
+
+    public Animation<Texture> setAnimationRun() {
+        MenuGameAssetManager menu = MenuGameAssetManager.getMenuGameAssetManager();
+        if (game.getHeroNumber() == 0) {
+            return menu.hero1_run;
+        } else if (game.getHeroNumber() == 1) {
+            return menu.hero2_run;
+        } else if (game.getHeroNumber() == 2) {
+            return menu.hero3_run;
+        } else if (game.getHeroNumber() == 3) {
+            return menu.hero4_run;
+        } else {
+            return menu.hero5_run;
         }
     }
 

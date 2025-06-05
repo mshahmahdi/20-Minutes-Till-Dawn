@@ -17,8 +17,6 @@ public class PumpkinMonster extends Enemy {
     private float speed = 100f;
     private Texture texture;
 
-    private int health = 25; // یا هر عدد دیگه‌ای که خواستی
-    private boolean isDead = false;
     private final Sound dieSound;
 
 
@@ -85,12 +83,25 @@ public class PumpkinMonster extends Enemy {
         return rect;
     }
 
-    public void takeDamage(int damage) {
-        if (isDead) return;
+    public float getX() {
+        return x;
+    }
 
-        health -= damage;
-        if (health <= 0) {
-        }
+    public float getY() {
+        return y;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void takeDamage(int damage) {
+        super.health -= damage;
+    }
+
+    public void dead() {
+        dieSound.play(1.0f);
+
     }
 
 

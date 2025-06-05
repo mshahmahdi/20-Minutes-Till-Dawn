@@ -90,6 +90,8 @@ public class Player {
         return playerHealth;
     }
 
+    public Sprite getSprite() { return playerSprite; }
+
     public boolean isInvincible() {
         return invincible;
     }
