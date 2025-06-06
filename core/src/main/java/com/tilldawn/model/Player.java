@@ -7,11 +7,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Player {
     public Game game;
+    private int XP;
+    private int level;
     private Texture playerTexture;
+    private Texture lightTexture;
     private Sprite playerSprite;
+    private Sprite lightSprite;
     private float posX = 0;
     private float posY = 0;
-    private float playerHealth = 100;
+    private float playerHealth;
+    private int kills;
     private CollisionRect rect ;
     private float time = 0;
     private float speed;
@@ -35,6 +40,8 @@ public class Player {
 
     public Player(Game game) {
         this.game = game;
+        this.kills = 0;
+        this.level = 0;
         this.speed = setSpeed();
         this.playerTexture  = setPlayerTexture();
         this.playerSprite = new Sprite(playerTexture);
@@ -44,6 +51,23 @@ public class Player {
         this.width = setWidth();
         this.height = setHeight();
         this.damageSound = Gdx.audio.newSound(Gdx.files.internal("musics/punch-140236.mp3"));
+        this.lightTexture = new Texture("sprite/T/T_Circle.png");
+        this.lightSprite = new Sprite(lightTexture);
+        lightSprite.setSize(playerSprite.getWidth() * 7f, playerSprite.getHeight() * 6f); // هاله بزرگ‌تر از خود بازیکن
+        lightSprite.setOriginCenter();
+        setHp();
+    }
+
+    public int getXP() {
+        return XP;
+    }
+
+    public void addXP(int xp) {
+        XP += xp;
+    }
+
+    public void setXP(int xp) {
+        XP = xp;
     }
 
     public Texture getPlayerTexture() {
@@ -56,6 +80,22 @@ public class Player {
 
     public Sprite getPlayerSprite() {
         return playerSprite;
+    }
+
+    public int getKills() {
+        return kills;
+    }
+
+    public void addKills(int kills) {
+        this.kills += kills;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void addLevel(int level) {
+        this.level += level;
     }
 
     public float getLastHitTime() {
@@ -91,6 +131,8 @@ public class Player {
     }
 
     public Sprite getSprite() { return playerSprite; }
+
+    public Sprite getLightSprite() { return lightSprite; }
 
     public boolean isInvincible() {
         return invincible;
@@ -209,6 +251,20 @@ public class Player {
         }
     }
 
+    public void setHp() {
+        if (game.getHeroNumber() == 0) {
+            playerHealth = 2;
+        } else if (game.getHeroNumber() == 1) {
+            playerHealth = 7;
+        } else if (game.getHeroNumber() == 2) {
+            playerHealth = 5;
+        } else if (game.getHeroNumber() == 3) {
+            playerHealth = 3;
+        } else {
+            playerHealth = 4;
+        }
+    }
+
     public void takeDamage(float damage) {
         if (!invincible) {
             playerHealth -= damage;
@@ -221,4 +277,5 @@ public class Player {
             // playDamageSound();
         }
     }
+
 }

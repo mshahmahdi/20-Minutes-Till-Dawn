@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Game {
@@ -11,7 +12,10 @@ public class Game {
     private User user;
 
     private int score;
-    private int time;
+    private float time;
+    private int minutes;
+    private int seconds;
+    private String timeText;
     private final int heroNumber;
     private final int gunNumber;
 
@@ -20,6 +24,7 @@ public class Game {
 
     private ArrayList<TreeMonster> treeMonsters = new ArrayList<>();
     private ArrayList<PumpkinMonster> pumpkinMonsters = new ArrayList<>();
+    private List<DroppedItem> droppedItems = new ArrayList<>();
 
     public Game(int id, User user, int time, int heroNumber, int gunNumber) {
         this.id = id;
@@ -27,14 +32,17 @@ public class Game {
         this.user = user;
         this.score = 0;
         if (time == 0) {
-            this.time = 20;
+            this.time = 20f * 60f;
         } else if (time == 1) {
-            this.time = 10;
+            this.time = 10f * 60f;
         } else if (time == 2) {
-            this.time = 5;
+            this.time = 5f * 60f;
         } else if (time == 3) {
-            this.time = 2;
+            this.time = 2f * 60f;
         }
+        this.minutes = (int) (time / 60);
+        this.seconds = (int) (time % 60);
+        this.timeText = String.format("%02d:%02d", minutes, seconds);;
         this.heroNumber = heroNumber;
         this.gunNumber = gunNumber;
     }
@@ -51,7 +59,20 @@ public class Game {
         return score;
     }
 
-    public int getTime() { return time; }
+    public float getTime() {
+        return time;
+    }
+
+    public void setTime(float time) {
+        this.time = time;
+        this.minutes = (int) (time / 60);
+        this.seconds = (int) (time % 60);
+        this.timeText = String.format("%02d:%02d", minutes, seconds);
+    }
+
+    public String getTimeText() {
+        return timeText;
+    }
 
     public void update(float delta) {
         if (isRunning) {
@@ -79,9 +100,13 @@ public class Game {
         isRunning = true;
     }
 
-    public int getHeroNumber() { return heroNumber; }
+    public int getHeroNumber() {
+        return heroNumber;
+    }
 
-    public int getGunNumber() { return gunNumber; }
+    public int getGunNumber() {
+        return gunNumber;
+    }
 
     public ArrayList<TreeMonster> getTreeMonsters() {
         return treeMonsters;
@@ -89,6 +114,10 @@ public class Game {
 
     public ArrayList<PumpkinMonster> getPumpkinMonsters() {
         return pumpkinMonsters;
+    }
+
+    public List<DroppedItem> getDroppedItems() {
+        return droppedItems;
     }
 
     public void setId(int id) {

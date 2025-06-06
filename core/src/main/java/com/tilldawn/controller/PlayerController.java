@@ -1,6 +1,7 @@
 package com.tilldawn.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -10,13 +11,18 @@ import com.tilldawn.Main;
 import com.tilldawn.model.*;
 import com.tilldawn.model.Enums.KeysController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlayerController {
     public Game game;
     private Player player;
+    private Sound getXPSound;
 
     public PlayerController(Player player, Game game) {
         this.player = player;
         this.game = game;
+        this.getXPSound = Gdx.audio.newSound(Gdx.files.internal("musics/level-up-3-199576.mp3"));
     }
 
     public void update(float delta, OrthographicCamera camera, Sprite mapSprite) {
@@ -38,6 +44,12 @@ public class PlayerController {
 
         // رسم بازیکن
         player.getPlayerSprite().setPosition(player.getPosX() - playerHalfWidth, player.getPosY() - playerHalfHeight);
+        player.getLightSprite().setPosition(
+            player.getPosX() - player.getLightSprite().getWidth() / 2f,
+            player.getPosY() - player.getLightSprite().getHeight() / 2f
+        );
+        player.getLightSprite().setAlpha(0.05f);
+        player.getLightSprite().draw(Main.getBatch());
         player.getPlayerSprite().draw(Main.getBatch());
 
 
@@ -60,6 +72,17 @@ public class PlayerController {
                 System.out.println(player.getPlayerHealth());
             }
         }
+        List<DroppedItem> removeDropItems = new ArrayList<>();
+        for (DroppedItem item : game.getDroppedItems()) {
+            if (item.getRect().collidesWith(player.getRect())) {
+                if (App.getApp().isSoundEffect()) {
+                    getXPSound.play();
+                }
+                player.addXP(3);
+                removeDropItems.add(item);
+            }
+        }
+        game.getDroppedItems().removeAll(removeDropItems);
 
         if (player.isInvincible()) {
             player.setInvincibleTimer(player.getInvincibleTimer() - delta);

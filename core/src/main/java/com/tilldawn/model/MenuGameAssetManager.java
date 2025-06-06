@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class MenuGameAssetManager {
     private static MenuGameAssetManager menuGameAssetManager;
     private final Skin menuSkin = new Skin(Gdx.files.internal("skin/pixthulhu-ui.json"));
+    private final Skin skin = new Skin(Gdx.files.internal("skin2/uiskin.json"));
 
     //public static final Image gameTitle = new Image(new Texture(Gdx.files.internal("sprite/T/T_20Logo.png")));
     public final Texture gameTitle = new Texture("sprite/T/T_20Logo.png");
@@ -122,8 +123,32 @@ public class MenuGameAssetManager {
         new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_4.png")),
         new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_5.png")));
 
-    public final Animation<Texture> delete_monster = new Animation<>(0.1f, new Texture("delete monster/T_Gale_0.png"),
+    public final Animation<Texture> delete_monster = new Animation<>(0.2f, new Texture("delete monster/T_Gale_0.png"),
+        new Texture("delete monster/T_Gale_0.png"),
+        new Texture("delete monster/T_Gale_0.png"),
+        new Texture("delete monster/T_Gale_0.png"),
+        new Texture("delete monster/T_Gale_0.png"),
+        new Texture("delete monster/T_Gale_0.png"),
+        new Texture("delete monster/T_Gale_0.png"),
+        new Texture("delete monster/T_Gale_0.png"),
+        new Texture("delete monster/T_Gale_0.png"),
+        new Texture("delete monster/T_Gale_0.png"),
         new Texture("delete monster/T_Gale_1.png"),
+        new Texture("delete monster/T_Gale_1.png"),
+        new Texture("delete monster/T_Gale_1.png"),
+        new Texture("delete monster/T_Gale_1.png"),
+        new Texture("delete monster/T_Gale_1.png"),
+        new Texture("delete monster/T_Gale_1.png"),
+        new Texture("delete monster/T_Gale_1.png"),
+        new Texture("delete monster/T_Gale_1.png"),
+        new Texture("delete monster/T_Gale_2.png"),
+        new Texture("delete monster/T_Gale_2.png"),
+        new Texture("delete monster/T_Gale_2.png"),
+        new Texture("delete monster/T_Gale_2.png"),
+        new Texture("delete monster/T_Gale_2.png"),
+        new Texture("delete monster/T_Gale_2.png"),
+        new Texture("delete monster/T_Gale_2.png"),
+        new Texture("delete monster/T_Gale_2.png"),
         new Texture("delete monster/T_Gale_2.png"));
 
     public final Animation<TextureRegion> menuAnimation = new Animation<>(0.2f, buildMenuAnimation(), Animation.PlayMode.LOOP);
@@ -144,6 +169,8 @@ public class MenuGameAssetManager {
     public Skin getMenuSkin() {
         return menuSkin;
     }
+
+    public Skin getGameSkin() { return skin; }
 
 
     public static Array<TextureRegion> buildMenuAnimation() {

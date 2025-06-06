@@ -13,13 +13,14 @@ public class Weapon {
     private int ammo;
     private boolean isReloading = false;
     private float reloadTimer = 0f;
-    private float reloadDuration = 1f; // 1 ثانیه
+    private float reloadDuration; // 1 ثانیه
     private Sound reloadSound;
     private Sound reloadSound2;
 
 
-    public Weapon(Game game, Texture smgTexture, int ammo) {
+    public Weapon(Game game, Texture smgTexture, int ammo, int reloadDuration) {
         this.Texture = smgTexture;
+        this.reloadDuration = reloadDuration;
         this.spriteWeapon = new Sprite(this.Texture);
         spriteWeapon.setX((float) Gdx.graphics.getWidth() / 2 );
         spriteWeapon.setY((float) Gdx.graphics.getHeight() / 2);
@@ -36,7 +37,7 @@ public class Weapon {
         if (isReloading) {
             reloadTimer += deltaTime;
             if (reloadTimer >= reloadDuration) {
-                ammo = 10; // یا هر مقدار خشاب
+                ammo = ammoMax; // یا هر مقدار خشاب
                 reloadTimer = 0;
                 isReloading = false;
             }

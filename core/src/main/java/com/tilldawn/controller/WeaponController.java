@@ -24,8 +24,8 @@ public class WeaponController {
     private Sound gunShotGunSound;
     private Sound damagedSound;
     private Animation<Texture> deleteMonsterAnimation;
-    float stateTime = 0f;
-    boolean playAnim = false;
+    float animTime = 5f;
+    boolean showAnim = true;
     private int gunNumber;
 
     public WeaponController(Weapon weapon, int gunNumber) {
@@ -101,7 +101,7 @@ public class WeaponController {
                 Vector2 rotatedDirection = baseDirection.cpy().rotateDeg(angleOffset);
                 bullets.add(new Bullet(bulletStartX, bulletStartY, rotatedDirection, gunNumber));
             }
-            weapon.setAmmo(weapon.getAmmo() - pelletCount);
+            weapon.setAmmo(weapon.getAmmo() - 1);
             if (App.getApp().isSoundEffect()) {
                 gunShotGunSound.play(1.0f); // حجم ۱.۰ یعنی صدای کامل
             }
@@ -127,10 +127,23 @@ public class WeaponController {
                         pumpkin.getSprite().getY() + (Math.signum(pumpkin.getSprite().getY() - player.getPosY())) * 30);
                     pumpkin.getRect().move(pumpkin.getSprite().getX(), pumpkin.getSprite().getY());
                     if (pumpkin.isDead()) {
+                        player.addKills(1);
+                        Texture itemTexture = new Texture("sprite/T/T_ChargeUp_0.png"); // جایگزین عکس مورد نظر
+                        DroppedItem item = new DroppedItem(itemTexture,
+                            pumpkin.getSprite().getX() + 10, // کمی کنارشه
+                            pumpkin.getSprite().getY());
+                        weapon.game.getDroppedItems().add(item);
                         pumpkin.dead();
+                        animTime += Gdx.graphics.getDeltaTime();
+                        Texture currentFrame = deleteMonsterAnimation.getKeyFrame(animTime, false);
+                        Main.getBatch().draw(currentFrame, pumpkin.getSprite().getX(), pumpkin.getSprite().getY(),
+                            pumpkin.getSprite().getWidth(),
+                            pumpkin.getSprite().getHeight()); // مختصات و اندازه مورد نظر
                         monstersToRemove.add(pumpkin);
                     }
-                    damagedSound.play(1.0f);
+                    if (App.getApp().isSoundEffect()) {
+                        damagedSound.play(1.0f);
+                    }
                     bulletsToRemove.add(b);
                     break;
                 }

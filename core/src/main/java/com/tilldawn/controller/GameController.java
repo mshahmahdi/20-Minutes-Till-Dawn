@@ -57,11 +57,11 @@ public class GameController {
 
     public Weapon setWeapon() {
         if (view.game.getGunNumber() == 0) {
-            return new RvolverWeapon(view.game, new Texture("guns/T_CloseQuarters_Gun.png"), 6);
-        } else if (view.game.getHeroNumber() == 1) {
-            return new ShotGunWeapon(view.game, new Texture("guns/T_BatgunVamp_Gun.png"), 2);
+            return new RvolverWeapon(view.game, new Texture("guns/T_CloseQuarters_Gun.png"), 6, 1);
+        } else if (view.game.getGunNumber() == 1) {
+            return new ShotGunWeapon(view.game, new Texture("guns/T_BatgunVamp_Gun.png"), 2, 2);
         } else {
-            return new SMGWeapon(view.game, new Texture("guns/T_Trickshot_Gun.png"), 24);
+            return new SMGWeapon(view.game, new Texture("guns/T_Trickshot_Gun.png"), 24, 1);
         }
     }
 //            this.gun1Label = new Label("REVOLVER", skin);

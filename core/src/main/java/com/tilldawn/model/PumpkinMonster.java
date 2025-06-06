@@ -100,8 +100,9 @@ public class PumpkinMonster extends Enemy {
     }
 
     public void dead() {
-        dieSound.play(1.0f);
-
+        if (App.getApp().isSoundEffect()) {
+            dieSound.play(1.0f);
+        }
     }
 
 

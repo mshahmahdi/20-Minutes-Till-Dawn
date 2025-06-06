@@ -14,6 +14,7 @@ import com.tilldawn.view.PregameMenuView;
 public class PregameMenuController {
     private PregameMenuView view;
     private final Skin skin = MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin();
+    private final Skin skin2 = MenuGameAssetManager.getMenuGameAssetManager().getGameSkin();
 
     public void setView(PregameMenuView view) {
         this.view = view;
@@ -60,7 +61,7 @@ public class PregameMenuController {
                     app.setCurrentGameId(app.getCurrentGameId() + 1);
                     app.setCurrentGame(newGame);
                     app.getLoggedInUser().setCurrentGame(newGame);
-                    Main.getMain().setScreen(new GameView(new GameController(newGame), skin, newGame));
+                    Main.getMain().setScreen(new GameView(new GameController(newGame), skin2, newGame));
                 }
             }
         });
