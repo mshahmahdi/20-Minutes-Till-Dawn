@@ -1,6 +1,7 @@
 package com.tilldawn.view;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.tilldawn.controller.PregameMenuController;
@@ -228,6 +229,7 @@ public class PregameMenuView implements Screen {
 
     @Override
     public void render(float v) {
+        Main.getBatch().setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         stateTime += v;
         float cycle = 5f;
         float animDuration = MenuGameAssetManager.getMenuGameAssetManager().menuAnimation.getAnimationDuration();

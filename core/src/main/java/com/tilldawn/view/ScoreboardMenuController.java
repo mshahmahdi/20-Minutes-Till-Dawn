@@ -32,7 +32,7 @@ public class ScoreboardMenuController {
                 ArrayList<String> sortedUsernames = new ArrayList<>();
                 switch (selected) {
                     case "Score":
-                        sortedBy = ascendingSortUnique(getScores());
+                        sortedBy = descendingSortUnique(getScores());
                         sortedUsernames = sortByScore(sortedBy);
                         ScoreboardMenuView view1 = new ScoreboardMenuView(new ScoreboardMenuController(), skin, sortedUsernames);
                         view1.getSortbySelectBox().setSelected("Score");
@@ -45,14 +45,14 @@ public class ScoreboardMenuController {
                         Main.getMain().setScreen(view2);
                         break;
                     case "Kills":
-                        sortedBy = ascendingSortUnique(getKills());
+                        sortedBy = descendingSortUnique(getKills());
                         sortedUsernames = sortByKills(sortedBy);
                         ScoreboardMenuView view3 = new ScoreboardMenuView(new ScoreboardMenuController(), skin, sortedUsernames);
                         view3.getSortbySelectBox().setSelected("Kills");
                         Main.getMain().setScreen(view3);
                         break;
                     case "Survived Time":
-                        sortedBy = ascendingSortUnique(getSurvivedTimes());
+                        sortedBy = descendingSortUnique(getSurvivedTimes());
                         sortedUsernames = sortBySurvivedTime(sortedBy);
                         ScoreboardMenuView view4 = new ScoreboardMenuView(new ScoreboardMenuController(), skin, sortedUsernames);
                         view4.getSortbySelectBox().setSelected("Survived Time");

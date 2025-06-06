@@ -61,7 +61,9 @@ public class PregameMenuController {
                     app.setCurrentGameId(app.getCurrentGameId() + 1);
                     app.setCurrentGame(newGame);
                     app.getLoggedInUser().setCurrentGame(newGame);
-                    Main.getMain().setScreen(new GameView(new GameController(newGame), skin2, newGame));
+                    GameView newGameView = new  GameView(new GameController(newGame), skin2, newGame);
+                    app.setCurrentGameView(newGameView);
+                    Main.getMain().setScreen(newGameView);
                 }
             }
         });

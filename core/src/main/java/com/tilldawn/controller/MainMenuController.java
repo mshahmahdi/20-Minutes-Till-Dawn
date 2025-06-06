@@ -19,7 +19,12 @@ public class MainMenuController {
 
     public void handleMainMenu() {
         if (view != null) {
-            if (view.getNewGameButton().isChecked()) {
+            if (view.getContinueButton().isChecked()) {
+                if (App.getApp().getCurrentGameView() != null) {
+                    Main.getMain().setScreen(App.getApp().getCurrentGameView());
+                    App.getApp().getCurrentGameView().setIsPaused(false);
+                }
+            } else if (view.getNewGameButton().isChecked()) {
                 Main.getMain().setScreen(new PregameMenuView(new PregameMenuController(), skin));
             } else if (view.getSettingsButton().isChecked()) {
                 Main.getMain().setScreen(new SettingsMenuView(new SettingsMenuController(), skin));

@@ -1,6 +1,7 @@
 package com.tilldawn.model;
 
 import com.badlogic.gdx.audio.Music;
+import com.tilldawn.view.GameView;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ public class App {
     private User loggedInUser;
     private User pendingUser;
     private Game currentGame;
+    private GameView currentGameView;
 
     private int currentGameId = 101;
 
@@ -55,6 +57,8 @@ public class App {
 
     public int getCurrentGameId() { return currentGameId; }
 
+    public GameView getCurrentGameView() { return currentGameView; }
+
     public boolean isSoundEffect() { return soundEffect; }
 
     public boolean isAutoReload() { return autoReload; }
@@ -84,6 +88,10 @@ public class App {
     public void setSoundEffect(boolean soundEffect) { this.soundEffect = soundEffect; }
 
     public void setCurrentGameId(int currentGameId) { this.currentGameId = currentGameId; }
+
+    public void setCurrentGameView(GameView currentGameView) {
+        this.currentGameView = currentGameView;
+    }
 
     // Auxiliary functions :
 

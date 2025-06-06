@@ -152,7 +152,6 @@ public class MenuGameAssetManager {
         new Texture("delete monster/T_Gale_2.png"));
 
     public final Animation<TextureRegion> menuAnimation = new Animation<>(0.2f, buildMenuAnimation(), Animation.PlayMode.LOOP);
-    ;
 
 
     public static MenuGameAssetManager getMenuGameAssetManager() {

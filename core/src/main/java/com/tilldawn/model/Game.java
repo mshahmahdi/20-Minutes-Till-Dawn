@@ -10,9 +10,9 @@ import java.util.Random;
 public class Game {
     private int id;
     private User user;
-
     private int score;
     private float time;
+    private float survivalTime;
     private int minutes;
     private int seconds;
     private String timeText;
@@ -21,6 +21,12 @@ public class Game {
 
     private float elapsedTime;
     private boolean isRunning = true;
+
+    private boolean vitality = false;
+    private boolean damager = false;
+    private boolean procrease = false;
+    private boolean amocrease = false;
+    private boolean speedy = false;
 
     private ArrayList<TreeMonster> treeMonsters = new ArrayList<>();
     private ArrayList<PumpkinMonster> pumpkinMonsters = new ArrayList<>();
@@ -63,15 +69,64 @@ public class Game {
         return time;
     }
 
-    public void setTime(float time) {
+    public void setTime(float time, float delta) {
         this.time = time;
         this.minutes = (int) (time / 60);
         this.seconds = (int) (time % 60);
         this.timeText = String.format("%02d:%02d", minutes, seconds);
+        this.survivalTime = survivalTime + delta;
     }
 
     public String getTimeText() {
         return timeText;
+    }
+
+    public float getSurvivalTime() {
+        return survivalTime;
+    }
+
+    public boolean isVitality() {
+        return vitality;
+    }
+
+    public boolean isDamager() {
+        return damager;
+    }
+
+    public boolean isProcrease() {
+        return procrease;
+    }
+
+    public boolean isAmocrease() {
+        return amocrease;
+    }
+
+    public boolean isSpeedy() {
+        return speedy;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setVitality(boolean vitality) {
+        this.vitality = vitality;
+    }
+
+    public void setDamager(boolean damager) {
+        this.damager = damager;
+    }
+
+    public void setProcrease(boolean procrease) {
+        this.procrease = procrease;
+    }
+
+    public void setAmocrease(boolean amocrease) {
+        this.amocrease = amocrease;
+    }
+
+    public void setSpeedy(boolean speedy) {
+        this.speedy = speedy;
     }
 
     public void update(float delta) {
@@ -142,5 +197,21 @@ public class Game {
             TreeMonster tree = new TreeMonster(x, y);
             treeMonsters.add(tree);
         }
+    }
+
+    public String getAbilities() {
+        String abilities = "";
+        if (isVitality()) {
+            abilities += "Vitality  ";
+        } else if (isDamager()) {
+            abilities += "Damager  ";
+        } else if (isProcrease()) {
+            abilities += "Procrease ";
+        } else if (isAmocrease()) {
+            abilities += "Amocrease ";
+        } else if (isSpeedy()) {
+            abilities += "Speedy ";
+        }
+        return abilities;
     }
 }

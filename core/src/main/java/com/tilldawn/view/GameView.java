@@ -17,10 +17,12 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tilldawn.controller.GameController;
 import com.tilldawn.Main;
 import com.tilldawn.controller.MainMenuController;
+import com.tilldawn.controller.PauseMenuController;
 import com.tilldawn.model.*;
 import com.tilldawn.model.Enums.KeysController;
 
 public class GameView implements Screen, InputProcessor {
+    boolean isPaused = false;
     public Game game;
     private Stage stage;
     private GameController controller;
@@ -40,6 +42,7 @@ public class GameView implements Screen, InputProcessor {
     private Label killLabel;
     private Label levelLabel;
     private ProgressBar xpBar;
+    private Cursor customCursor = Gdx.graphics.newCursor(pixmap, 0, 0);
 
 
     public GameView(GameController controller, Skin skin, Game game) {
@@ -61,10 +64,8 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public void show() {
 
-
-        Cursor customCursor = Gdx.graphics.newCursor(pixmap, 0, 0); // نقطه فعال: بالا چپ
+        // نقطه فعال: بالا چپ
         Gdx.graphics.setCursor(customCursor);
-        pixmap.dispose();
         // Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 
         ShaderProgram.pedantic = false;
@@ -125,7 +126,13 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public void render(float delta) {
 
-        game.setTime(game.getTime() - delta);
+        Gdx.graphics.setCursor(customCursor);
+        if (isPaused) {
+            // مثلا فقط صفحه Pause بکشه
+            return;
+        }
+
+        game.setTime(game.getTime() - delta, delta);
 
         hpLabel.setText(" * " + (int)controller.getPlayerController().getPlayer().getPlayerHealth());
         ammoLabel.setText(" * " + controller.getWeaponController().getWeapon().getAmmo());
@@ -251,12 +258,14 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void pause() {
-
+        Skin skin = MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin();
+        isPaused = true;
+        Main.getMain().setScreen(new PauseMenuView(new PauseMenuController(), skin, game.getAbilities()));
     }
 
     @Override
     public void resume() {
-
+        isPaused = false;
     }
 
     @Override
@@ -283,6 +292,11 @@ public class GameView implements Screen, InputProcessor {
         if (Gdx.input.isKeyJustPressed(KeysController.RELOAD.getKey())) {
             if (!controller.getWeaponController().getWeapon().isReloading()) {
                 controller.getWeaponController().getWeapon().startReload();
+            }
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) {
+            if (!isPaused) {
+                pause();
             }
         }
         return false;
@@ -320,5 +334,13 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
+    }
+
+    public GameController getController() {
+        return controller;
+    }
+
+    public void setIsPaused(boolean isPaused) {
+        this.isPaused = isPaused;
     }
 }
