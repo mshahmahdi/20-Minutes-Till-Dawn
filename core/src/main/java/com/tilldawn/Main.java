@@ -27,6 +27,7 @@ public class Main extends Game {
             App.getApp().addUser(App.getApp().getLoggedInUser());
         }
         SignupMenuController.setAvatar(App.getApp().getLoggedInUser());
+        //Main.getMain().setScreen(new AbilityMenuView(new AbilityMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //Main.getMain().setScreen(new FinalMenuView(new FinalMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin(), true));
         //Main.getMain().setScreen(new PauseMenuView(new PauseMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin(), "Daddkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"));
         getMain().setScreen(new PregameMenuView(new PregameMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));

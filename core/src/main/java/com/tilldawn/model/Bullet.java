@@ -16,6 +16,9 @@ public class Bullet {
 
     public Bullet(float startX, float startY, Vector2 direction, int gunNumber){
         setDamage(gunNumber);
+        if (App.getApp().getCurrentGameView().game.isDamager()){
+            damage *= 2;
+        }
         sprite.setSize(20, 20);
         sprite.setPosition(startX, startY);
         this.direction = direction.nor();

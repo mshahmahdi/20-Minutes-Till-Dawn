@@ -28,6 +28,8 @@ public class Game {
     private boolean amocrease = false;
     private boolean speedy = false;
 
+    private float damagerTimer = 0f;
+
     private ArrayList<TreeMonster> treeMonsters = new ArrayList<>();
     private ArrayList<PumpkinMonster> pumpkinMonsters = new ArrayList<>();
     private List<DroppedItem> droppedItems = new ArrayList<>();
@@ -48,7 +50,8 @@ public class Game {
         }
         this.minutes = (int) (time / 60);
         this.seconds = (int) (time % 60);
-        this.timeText = String.format("%02d:%02d", minutes, seconds);;
+        this.timeText = String.format("%02d:%02d", minutes, seconds);
+        ;
         this.heroNumber = heroNumber;
         this.gunNumber = gunNumber;
     }
@@ -115,6 +118,9 @@ public class Game {
 
     public void setDamager(boolean damager) {
         this.damager = damager;
+        if (damager) {
+            damagerTimer = 10f; // مدت زمان ابیلیتی به ثانیه
+        }
     }
 
     public void setProcrease(boolean procrease) {
@@ -132,6 +138,12 @@ public class Game {
     public void update(float delta) {
         if (isRunning) {
             elapsedTime += delta;
+        }
+        if (damager) {
+            damagerTimer -= delta;
+            if (damagerTimer <= 0f) {
+                damager = false;
+            }
         }
     }
 

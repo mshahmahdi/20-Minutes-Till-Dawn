@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.tilldawn.controller.AbilityMenuController;
 import com.tilldawn.controller.GameController;
 import com.tilldawn.Main;
 import com.tilldawn.controller.MainMenuController;
@@ -146,6 +147,8 @@ public class GameView implements Screen, InputProcessor {
             xpBar.setValue(0f);
             controller.getPlayerController().getPlayer().addLevel(1);
             controller.getPlayerController().getPlayer().setXP(0);
+            isPaused = false;
+            Main.getMain().setScreen(new AbilityMenuView(new AbilityMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         }
 
         game.update(delta);

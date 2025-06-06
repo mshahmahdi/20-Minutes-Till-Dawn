@@ -24,6 +24,11 @@ public class Player {
     private float width;
     private float height;
 
+    private boolean isSpeedBoosted = false;
+    private float speedBoostTimer = 0f;
+    private final float SPEED_BOOST_DURATION = 10f;
+    private final float SPEED_MULTIPLIER = 2f;
+
     private boolean invincible = false; // آیا فعلاً دمیج نمی‌خوره؟
     private float invincibleTimer = 0f; // چقدر از زمان بی‌دفاع بودن مونده؟
     private final float INVINCIBLE_DURATION = 1f;
@@ -194,6 +199,25 @@ public class Player {
         this.time = time;
     }
 
+    public void activateSpeedBoost() {
+        isSpeedBoosted = true;
+        speedBoostTimer = SPEED_BOOST_DURATION;
+    }
+
+    public void updateSpeedBoost(float delta) {
+        if (isSpeedBoosted) {
+            speedBoostTimer -= delta;
+            if (speedBoostTimer <= 0) {
+                isSpeedBoosted = false;
+                speedBoostTimer = 0;
+            }
+        }
+    }
+
+    public float getEffectiveSpeed() {
+        return isSpeedBoosted ? speed * SPEED_MULTIPLIER : speed;
+    }
+
     public Texture setPlayerTexture() {
 
         if (game.getHeroNumber() == 0) {
@@ -263,6 +287,10 @@ public class Player {
         } else {
             playerHealth = 4;
         }
+    }
+
+    public void addHP() {
+        this.playerHealth += 1;
     }
 
     public void takeDamage(float damage) {

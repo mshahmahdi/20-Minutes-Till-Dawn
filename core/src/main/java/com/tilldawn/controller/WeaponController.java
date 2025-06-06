@@ -94,7 +94,7 @@ public class WeaponController {
         Vector2 baseDirection = new Vector2(mouseWorld.x - bulletStartX, mouseWorld.y - bulletStartY).nor();
 
         if (isShotgun) {
-            int pelletCount = 4;
+            int pelletCount = weapon.getPelletCount() + 4;
             float spread = 15f;
             for (int i = 0; i < pelletCount; i++) {
                 float angleOffset = (i - (pelletCount - 1) / 2f) * spread;
@@ -106,7 +106,13 @@ public class WeaponController {
                 gunShotGunSound.play(1.0f); // حجم ۱.۰ یعنی صدای کامل
             }
         } else {
-            bullets.add(new Bullet(bulletStartX, bulletStartY, baseDirection, gunNumber));
+            int pelletCount = weapon.getPelletCount();
+            float spread = 15f;
+            for (int i = 0; i < pelletCount; i++) {
+                float angleOffset = (i - (pelletCount - 1) / 2f) * spread;
+                Vector2 rotatedDirection = baseDirection.cpy().rotateDeg(angleOffset);
+                bullets.add(new Bullet(bulletStartX, bulletStartY, rotatedDirection, gunNumber));
+            }
             weapon.setAmmo(weapon.getAmmo() - 1);
             if (App.getApp().isSoundEffect()) {
                 gunShotSound.play(1.0f); // حجم ۱.۰ یعنی صدای کامل

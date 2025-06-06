@@ -91,6 +91,8 @@ public class PlayerController {
             }
         }
 
+        player.updateSpeedBoost(delta);
+
         player.getRect().move(
             player.getPosX() - player.getPlayerSprite().getWidth() / 2f,
             player.getPosY() - player.getPlayerSprite().getHeight() / 2f
@@ -101,7 +103,7 @@ public class PlayerController {
 
 
     public void handlePlayerInput(float delta) {
-        float speed = player.getSpeed() * delta;
+        float speed = player.getEffectiveSpeed() * delta;
 
         if (Gdx.input.isKeyPressed(KeysController.UP.getKey())) {
             player.setPosY(player.getPosY() + speed);
