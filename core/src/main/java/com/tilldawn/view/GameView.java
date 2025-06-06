@@ -14,11 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.tilldawn.controller.AbilityMenuController;
-import com.tilldawn.controller.GameController;
+import com.tilldawn.controller.*;
 import com.tilldawn.Main;
-import com.tilldawn.controller.MainMenuController;
-import com.tilldawn.controller.PauseMenuController;
 import com.tilldawn.model.*;
 import com.tilldawn.model.Enums.KeysController;
 
@@ -133,6 +130,15 @@ public class GameView implements Screen, InputProcessor {
             return;
         }
 
+        if (game.getTime() <= 0f) {
+            Main.getMain().setScreen(new FinalMenuView(new FinalMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin(), true));
+            isPaused = true;
+        }
+
+        if (controller.getPlayerController().getPlayer().getPlayerHealth() == 0) {
+            Main.getMain().setScreen(new FinalMenuView(new FinalMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin(), false));
+        }
+
         game.setTime(game.getTime() - delta, delta);
 
         hpLabel.setText(" * " + (int)controller.getPlayerController().getPlayer().getPlayerHealth());
@@ -199,6 +205,21 @@ public class GameView implements Screen, InputProcessor {
                 item.render(Main.getBatch());
             }
 
+            for (EyebatMonster eyebat : game.getEyebatMonsters()) {
+                eyebat.update(delta, controller.getPlayerController().getPlayer());
+                eyebat.render(Main.getBatch());
+            }
+
+            if (game.isBossSpawned() && game.getFinalBoss() != null && !game.getFinalBoss().isDead()) {
+                game.getFinalBoss().render(Main.getBatch());
+                // می‌تونی دیوار حفاظتی رو با یه دایره یا کادر بکش
+            }
+
+            if (game.isBossWallActive() && game.getBossRingSprite() != null) {
+                game.getBossRingSprite().draw(Main.getBatch());
+            }
+
+
             Main.getBatch().end();
 
             // غیرفعال کردن شیدر برای رسم UI رنگی
@@ -246,6 +267,20 @@ public class GameView implements Screen, InputProcessor {
 
             for (DroppedItem item : game.getDroppedItems()) {
                 item.render(Main.getBatch());
+            }
+
+            for (EyebatMonster eyebat : game.getEyebatMonsters()) {
+                eyebat.update(delta, controller.getPlayerController().getPlayer());
+                eyebat.render(Main.getBatch());
+            }
+
+            if (game.isBossSpawned() && game.getFinalBoss() != null && !game.getFinalBoss().isDead()) {
+                game.getFinalBoss().render(Main.getBatch());
+                // می‌تونی دیوار حفاظتی رو با یه دایره یا کادر بکش
+            }
+
+            if (game.isBossWallActive() && game.getBossRingSprite() != null) {
+                game.getBossRingSprite().draw(Main.getBatch());
             }
 
             Main.getBatch().end();
@@ -304,6 +339,7 @@ public class GameView implements Screen, InputProcessor {
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
             game.setTime(game.getTime() - 60f, 60f);
+            game.setElapsedTime(game.getElapsedTime() + 60f);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
             controller.getPlayerController().getPlayer().setXP((int)xpBar.getMaxValue());
@@ -316,6 +352,11 @@ public class GameView implements Screen, InputProcessor {
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.K)) {
             game.getPumpkinMonsters().removeAll(game.getPumpkinMonsters());
+            game.getEyebatMonsters().removeAll(game.getEyebatMonsters());
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
+            game.setTime(game.getTime() - 300f, 300f);
+            game.setElapsedTime(game.getElapsedTime() + 300f);
         }
         return false;
     }
@@ -360,5 +401,9 @@ public class GameView implements Screen, InputProcessor {
 
     public void setIsPaused(boolean isPaused) {
         this.isPaused = isPaused;
+    }
+
+    public Sprite getMapSprite() {
+        return mapSprite;
     }
 }

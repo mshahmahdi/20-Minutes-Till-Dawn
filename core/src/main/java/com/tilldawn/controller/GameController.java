@@ -15,6 +15,7 @@ public class GameController {
     private WeaponController weaponController;
 
     private float tentacleSpawnTimer = 0;
+    private float eyeSpawnTimer = 0;
 
     public GameController(Game game) {
         this.game = game;
@@ -29,17 +30,27 @@ public class GameController {
     public void updateGame(float delta, OrthographicCamera camera, Sprite mapSprite) {
         if (view != null) {
             tentacleSpawnTimer += delta;
+            eyeSpawnTimer += delta;
 
             playerController.update(delta, camera, mapSprite);
             weaponController.update(playerController.getPlayer().getPosX(), playerController.getPlayer().getPosY(),
                 delta, playerController.getPlayer());
 
-            if (TimeUtils.timeSinceMillis((long) game.getElapsedTime()) > 30000) { // بعد از ثانیه ۳۰
+            if (App.getApp().getCurrentGameView().game.getSurvivalTime() > 30) { // بعد از ثانیه ۳۰
                 if (tentacleSpawnTimer >= 3f) {
                     tentacleSpawnTimer = 0;
                     float x = MathUtils.random(0, mapSprite.getWidth() - 64);
                     float y = MathUtils.random(0, mapSprite.getHeight() - 64);
                     game.getPumpkinMonsters().add(new PumpkinMonster(x, y));
+                }
+            }
+
+            if (App.getApp().getCurrentGameView().game.getSurvivalTime() > App.getApp().getCurrentGameView().game.getTotalTime() / 4f) { // بعد از ثانیه ۳۰
+                if (eyeSpawnTimer >= 30f) {
+                    eyeSpawnTimer = 0;
+                    float x = MathUtils.random(0, mapSprite.getWidth() - 64);
+                    float y = MathUtils.random(0, mapSprite.getHeight() - 64);
+                    game.getEyebatMonsters().add(new EyebatMonster(x, y));
                 }
             }
         }

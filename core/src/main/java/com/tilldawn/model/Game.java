@@ -1,10 +1,14 @@
 package com.tilldawn.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Game {
@@ -12,6 +16,7 @@ public class Game {
     private User user;
     private int score;
     private float time;
+    private float totalTime;
     private float survivalTime;
     private int minutes;
     private int seconds;
@@ -30,11 +35,25 @@ public class Game {
 
     private float damagerTimer = 0f;
 
+    private FinalBoss finalBoss;
+    private boolean bossSpawned = false;
+    private float bossWallSize = 7000f; // اندازه اولیه حفاظ
+    private boolean bossWallActive = false;
+
+    private Texture bossRingTexture;
+    private Sprite bossRingSprite;
+
     private ArrayList<TreeMonster> treeMonsters = new ArrayList<>();
     private ArrayList<PumpkinMonster> pumpkinMonsters = new ArrayList<>();
     private List<DroppedItem> droppedItems = new ArrayList<>();
+    private ArrayList<EyebatMonster> eyebatMonsters = new ArrayList<>();
+
+    private boolean isAutoAim = false;
 
     public Game(int id, User user, int time, int heroNumber, int gunNumber) {
+        bossRingTexture = new Texture("sprite/T/T_SelectorBubble_0.png");
+        bossRingSprite = new Sprite(bossRingTexture);
+        bossRingSprite.setOriginCenter();
         this.id = id;
         elapsedTime = 0f;
         this.user = user;
@@ -48,6 +67,8 @@ public class Game {
         } else if (time == 3) {
             this.time = 2f * 60f;
         }
+        this.survivalTime = 0f;
+        this.totalTime = time;
         this.minutes = (int) (time / 60);
         this.seconds = (int) (time % 60);
         this.timeText = String.format("%02d:%02d", minutes, seconds);
@@ -70,6 +91,10 @@ public class Game {
 
     public float getTime() {
         return time;
+    }
+
+    public float getTotalTime() {
+        return totalTime;
     }
 
     public void setTime(float time, float delta) {
@@ -135,6 +160,14 @@ public class Game {
         this.speedy = speedy;
     }
 
+    public void setAutoAim(boolean autoAim) {
+        isAutoAim = autoAim;
+    }
+
+    public boolean isAutoAim() {
+        return isAutoAim;
+    }
+
     public void update(float delta) {
         if (isRunning) {
             elapsedTime += delta;
@@ -145,10 +178,48 @@ public class Game {
                 damager = false;
             }
         }
+
+        if (!bossSpawned && elapsedTime >= 300f) {
+            finalBoss = new FinalBoss(App.getApp().getCurrentGameView().getController().getPlayerController().getPlayer().getPosX() + 100,
+                App.getApp().getCurrentGameView().getController().getPlayerController().getPlayer().getPosY() + 100); // یه مکان مناسب انتخاب کن
+            bossSpawned = true;
+            bossWallActive = true;
+        }
+
+        // اگر باس اسپان شده، آپدیت کن
+        if (bossSpawned && finalBoss != null && !finalBoss.isDead()) {
+            finalBoss.update(delta, App.getApp().getCurrentGameView().getController().getPlayerController().getPlayer());
+
+            // کاهش اندازه حفاظ به مرور
+            bossWallSize -= delta * 10f; // سرعت کاهش اندازه
+            if (playerIsOutsideWall(App.getApp().getCurrentGameView().getController().getPlayerController().getPlayer(), bossWallSize)) {
+                App.getApp().getCurrentGameView().getController().getPlayerController().getPlayer().takeDamage(1); // اگر از محیط بزنه بیرون
+            }
+        }
+
+        // حذف باس و حفاظ
+        if (bossSpawned && finalBoss != null) {
+            bossWallActive = false;
+        }
+
+        if (bossWallActive) {
+            bossWallSize -= delta * 10f;
+
+            float centerX = finalBoss.getSprite().getX() + finalBoss.getSprite().getWidth() / 2f;
+            float centerY = finalBoss.getSprite().getY() + finalBoss.getSprite().getHeight() / 2f;
+
+            bossRingSprite.setScale(bossWallSize / bossRingTexture.getWidth()); // حلقه رو با scale کوچیک کن
+            bossRingSprite.setPosition(centerX - bossRingSprite.getWidth() / 2f, centerY - bossRingSprite.getHeight() / 2f);
+
+        }
     }
 
     public float getElapsedTime() {
         return elapsedTime;
+    }
+
+    public void setElapsedTime(float elapsedTime) {
+        this.elapsedTime = elapsedTime;
     }
 
     public boolean isRunning() {
@@ -175,6 +246,22 @@ public class Game {
         return gunNumber;
     }
 
+    public FinalBoss getFinalBoss() {
+        return finalBoss;
+    }
+
+    public boolean isBossSpawned() {
+        return bossSpawned;
+    }
+
+    public float getBossWallSize() {
+        return bossWallSize;
+    }
+
+    public boolean isBossWallActive() {
+        return bossWallActive;
+    }
+
     public ArrayList<TreeMonster> getTreeMonsters() {
         return treeMonsters;
     }
@@ -185,6 +272,10 @@ public class Game {
 
     public List<DroppedItem> getDroppedItems() {
         return droppedItems;
+    }
+
+    public ArrayList<EyebatMonster> getEyebatMonsters() {
+        return eyebatMonsters;
     }
 
     public void setId(int id) {
@@ -226,4 +317,30 @@ public class Game {
         }
         return abilities;
     }
+
+    private boolean playerIsOutsideWall(Player player, float wallSize) {
+        float px = player.getPosX();
+        float py = player.getPosY();
+
+        if (finalBoss == null) return false; // اگه باس هنوز نیومده
+
+        float centerX = finalBoss.getSprite().getX() + finalBoss.getSprite().getWidth() / 2f;
+        float centerY = finalBoss.getSprite().getY() + finalBoss.getSprite().getHeight() / 2f;
+
+        float dx = px - centerX;
+        float dy = py - centerY;
+        float distance = (float) Math.sqrt(dx * dx + dy * dy);
+
+        return distance > bossWallSize / 2f;
+    }
+
+    public Sprite getBossRingSprite() {
+        return bossRingSprite;
+    }
+
+    public void setFinalBoss(FinalBoss finalBoss) {
+        this.finalBoss = finalBoss;
+    }
+
+
 }

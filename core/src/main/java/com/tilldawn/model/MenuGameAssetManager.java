@@ -112,11 +112,11 @@ public class MenuGameAssetManager {
         new Texture("Heros/Shana/run/Run_2 #8286.png"),
         new Texture("Heros/Shana/run/Run_3 #8349.png"));
 
-    public final Animation<Texture> TreeMonster = new Animation<>(0.5f, new Texture("tree_monster/T_TreeMonster_0.png"),
+    public final Animation<Texture> TreeMonster = new Animation<>(1f, new Texture("tree_monster/T_TreeMonster_0.png"),
         new Texture("tree_monster/T_TreeMonster_1.png"),
         new Texture("tree_monster/T_TreeMonster_2.png"));
 
-    public final Animation<TextureRegion> pumpkinMonster = new Animation<>(0.5f, new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_0.png")),
+    public final Animation<TextureRegion> pumpkinMonster = new Animation<>(0.2f, new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_0.png")),
         new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_1.png")),
         new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_2.png")),
         new TextureRegion(new Texture("T_PumpkinMonster/T_PumpkinMonster_3.png")),
@@ -150,6 +150,16 @@ public class MenuGameAssetManager {
         new Texture("delete monster/T_Gale_2.png"),
         new Texture("delete monster/T_Gale_2.png"),
         new Texture("delete monster/T_Gale_2.png"));
+
+    public final Animation<TextureRegion> eyeBat_monster = new Animation<>(0.1f, new TextureRegion(new Texture("Ebyte monster/T_EyeBat_0.png")),
+        new TextureRegion(new Texture("Ebyte monster/T_EyeBat_1.png")),
+        new TextureRegion(new Texture("Ebyte monster/T_EyeBat_2.png")),
+        new TextureRegion(new Texture("Ebyte monster/T_EyeBat_3.png")));
+
+    public final Animation<TextureRegion> finalBossAnim = new Animation<>(0.2f, new TextureRegion(new Texture("Elder Brain monster/T_Yog_0.png")),
+        new TextureRegion(new Texture("Elder Brain monster/T_Yog_1.png")),
+        new TextureRegion(new Texture("Elder Brain monster/T_Yog_2.png")),
+        new TextureRegion(new Texture("Elder Brain monster/T_Yog_3.png")));
 
     public final Animation<TextureRegion> menuAnimation = new Animation<>(0.2f, buildMenuAnimation(), Animation.PlayMode.LOOP);
 

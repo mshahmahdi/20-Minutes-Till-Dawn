@@ -38,6 +38,7 @@ public class MainMenuView implements Screen {
     private final TextButton scoreBoardButton;
     private final TextButton hintsButton;
     private final TextButton logoutButton;
+    private final TextButton exitButton;
     private final Music music;
     public Table table;
     Table topLeftTable;
@@ -60,6 +61,7 @@ public class MainMenuView implements Screen {
         this.scoreBoardButton = new TextButton("Score Board", skin);
         this.hintsButton = new TextButton("Hints", skin);
         this.logoutButton = new TextButton("Logout", skin);
+        this.exitButton = new TextButton("Exit", skin);
         this.continueButton.addListener((ClickListener) new ClickListener() {
         });
         this.newGameButton.addListener((ClickListener) new ClickListener() {
@@ -73,6 +75,8 @@ public class MainMenuView implements Screen {
         this.hintsButton.addListener((ClickListener) new ClickListener() {
         });
         this.logoutButton.addListener((ClickListener) new ClickListener() {
+        });
+        this.exitButton.addListener((ClickListener) new ClickListener() {
         });
         this.grayShader = new ShaderProgram(Gdx.files.internal("default.vert"), Gdx.files.internal("gray.frag"));
         this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
@@ -128,7 +132,7 @@ public class MainMenuView implements Screen {
 
         avatar.setPosition(1530, 950);
 
-        table.top().padTop(470);
+        table.top().padTop(390);
         continueButton.setColor(Color.valueOf("E9D8A6"));
         table.add(continueButton).width(550);
         table.row().pad(10, 0, 10, 0);
@@ -149,6 +153,9 @@ public class MainMenuView implements Screen {
         table.row().pad(10, 0, 10, 0);
         logoutButton.setColor(Color.valueOf("E9D8A6"));
         table.add(logoutButton).width(550);
+        table.row().pad(10, 0, 10, 0);
+        exitButton.setColor(Color.valueOf("E9D8A6"));
+        table.add(exitButton).width(550);
 
         stage.addActor(avatar);
         stage.addActor(topLeftTable);
@@ -245,7 +252,10 @@ public class MainMenuView implements Screen {
         return logoutButton;
     }
 
+    public TextButton getExitButton() { return exitButton; }
+
     public Music getMusic() {
         return music;
     }
+
 }

@@ -123,6 +123,8 @@ public class WeaponController {
     public void updateBullets(float delta, Player player) {
         List<Bullet> bulletsToRemove = new ArrayList<>();
         List<PumpkinMonster> monstersToRemove = new ArrayList<>();
+        List<EyebatMonster> eyebatMonstersToRemove = new ArrayList<>();
+
         for (Bullet b : bullets) {
             b.update();
             for (PumpkinMonster pumpkin : weapon.game.getPumpkinMonsters()) {
@@ -154,9 +156,71 @@ public class WeaponController {
                     break;
                 }
             }
+
+            for (EyebatMonster eyebatMonster : weapon.game.getEyebatMonsters()) {
+                if (b.getRect().collidesWith(eyebatMonster.getRect())) {
+                    eyebatMonster.takeDamage(b.getDamage());
+                    eyebatMonster.getSprite().setPosition(
+                        eyebatMonster.getSprite().getX() + (Math.signum(eyebatMonster.getSprite().getX() - player.getPosX())) * 30,
+                        eyebatMonster.getSprite().getY() + (Math.signum(eyebatMonster.getSprite().getY() - player.getPosY())) * 30);
+                    eyebatMonster.getRect().move(eyebatMonster.getSprite().getX(), eyebatMonster.getSprite().getY());
+                    if (eyebatMonster.isDead()) {
+                        player.addKills(1);
+                        Texture itemTexture = new Texture("sprite/T/T_ChargeUp_0.png"); // جایگزین عکس مورد نظر
+                        DroppedItem item = new DroppedItem(itemTexture,
+                            eyebatMonster.getSprite().getX() + 10, // کمی کنارشه
+                            eyebatMonster.getSprite().getY());
+                        weapon.game.getDroppedItems().add(item);
+                        eyebatMonster.dead();
+                        animTime += Gdx.graphics.getDeltaTime();
+                        Texture currentFrame = deleteMonsterAnimation.getKeyFrame(animTime, false);
+                        Main.getBatch().draw(currentFrame, eyebatMonster.getSprite().getX(), eyebatMonster.getSprite().getY(),
+                            eyebatMonster.getSprite().getWidth(),
+                            eyebatMonster.getSprite().getHeight()); // مختصات و اندازه مورد نظر
+                        eyebatMonstersToRemove.add(eyebatMonster);
+                    }
+                    if (App.getApp().isSoundEffect()) {
+                        damagedSound.play(1.0f);
+                    }
+                    bulletsToRemove.add(b);
+                    break;
+                }
+            }
+
+            if (getWeapon().game.getFinalBoss() != null) {
+                if (b.getRect().collidesWith(getWeapon().game.getFinalBoss().getRect())) {
+                    getWeapon().game.getFinalBoss().takeDamage(b.getDamage(), player);
+                    getWeapon().game.getFinalBoss().getSprite().setPosition(
+                        getWeapon().game.getFinalBoss().getSprite().getX() + (Math.signum(getWeapon().game.getFinalBoss().getSprite().getX() - player.getPosX())) * 30,
+                        getWeapon().game.getFinalBoss().getSprite().getY() + (Math.signum(getWeapon().game.getFinalBoss().getSprite().getY() - player.getPosY())) * 30);
+                    getWeapon().game.getFinalBoss().getRect().move(getWeapon().game.getFinalBoss().getSprite().getX(), getWeapon().game.getFinalBoss().getSprite().getY());
+                    if (getWeapon().game.getFinalBoss().isDead()) {
+                        player.addKills(1);
+                        Texture itemTexture = new Texture("sprite/T/T_ChargeUp_0.png"); // جایگزین عکس مورد نظر
+                        DroppedItem item = new DroppedItem(itemTexture,
+                            getWeapon().game.getFinalBoss().getSprite().getX() + 10, // کمی کنارشه
+                            getWeapon().game.getFinalBoss().getSprite().getY());
+                        weapon.game.getDroppedItems().add(item);
+                        getWeapon().game.getFinalBoss().dead();
+                        animTime += Gdx.graphics.getDeltaTime();
+                        Texture currentFrame = deleteMonsterAnimation.getKeyFrame(animTime, false);
+                        Main.getBatch().draw(currentFrame, getWeapon().game.getFinalBoss().getSprite().getX(), getWeapon().game.getFinalBoss().getSprite().getY(),
+                            getWeapon().game.getFinalBoss().getSprite().getWidth(),
+                            getWeapon().game.getFinalBoss().getSprite().getHeight()); // مختصات و اندازه مورد نظر
+                        weapon.game.setFinalBoss(null);
+                    }
+                    if (App.getApp().isSoundEffect()) {
+                        damagedSound.play(1.0f);
+                    }
+                    bulletsToRemove.add(b);
+                    break;
+                }
+            }
+
             b.getSprite().draw(Main.getBatch());
         }
         bullets.removeAll(bulletsToRemove);
         weapon.game.getPumpkinMonsters().removeAll(monstersToRemove);
+        weapon.game.getEyebatMonsters().removeAll(eyebatMonstersToRemove);
     }
 }

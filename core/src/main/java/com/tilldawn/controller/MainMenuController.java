@@ -1,5 +1,6 @@
 package com.tilldawn.controller;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.tilldawn.Main;
 import com.tilldawn.model.App;
@@ -44,6 +45,8 @@ public class MainMenuController {
                 app.setMusic(MenuGameAssetManager.getMenuGameAssetManager().music3);
                 app.getMusic().setVolume(0.5f);
                 Main.getMain().setScreen(new SignupMenuView(new SignupMenuController(), skin));
+            } else if (view.getExitButton().isChecked()) {
+                Gdx.app.exit();
             }
         }
     }

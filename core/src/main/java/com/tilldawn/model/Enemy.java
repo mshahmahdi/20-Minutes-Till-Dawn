@@ -1,5 +1,6 @@
 package com.tilldawn.model;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Enemy {

@@ -31,4 +31,8 @@ public class TreeMonster extends Enemy{
     public CollisionRect getRect() {
         return rect;
     }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
 }

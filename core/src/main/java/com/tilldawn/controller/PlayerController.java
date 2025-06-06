@@ -72,6 +72,14 @@ public class PlayerController {
                 System.out.println(player.getPlayerHealth());
             }
         }
+
+        if (game.getFinalBoss() != null) {
+            if (game.getFinalBoss().getRect().collidesWith(player.getRect())) {
+                player.takeDamage(1);
+                System.out.println(player.getPlayerHealth());
+            }
+        }
+
         List<DroppedItem> removeDropItems = new ArrayList<>();
         for (DroppedItem item : game.getDroppedItems()) {
             if (item.getRect().collidesWith(player.getRect())) {

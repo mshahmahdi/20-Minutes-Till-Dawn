@@ -30,7 +30,7 @@ public class Main extends Game {
         //Main.getMain().setScreen(new AbilityMenuView(new AbilityMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //Main.getMain().setScreen(new FinalMenuView(new FinalMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin(), true));
         //Main.getMain().setScreen(new PauseMenuView(new PauseMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin(), "Daddkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"));
-        getMain().setScreen(new PregameMenuView(new PregameMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
+        //getMain().setScreen(new PregameMenuView(new PregameMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new TalentMenuView(new TalentMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new ScoreboardMenuView(new ScoreboardMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin(), getUsernames()));
         //getMain().setScreen(new ProfileMenuView(new ProfileMenuController(),MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
@@ -39,7 +39,7 @@ public class Main extends Game {
         //getMain().setScreen(new MainMenuView(new MainMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new ForgetPasswordView(new ForgetPasswordMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new LoginMenuView(new LoginMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
-        //getMain().setScreen(new SignupMenuView(new SignupMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
+        getMain().setScreen(new SignupMenuView(new SignupMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
     }
 
     @Override
