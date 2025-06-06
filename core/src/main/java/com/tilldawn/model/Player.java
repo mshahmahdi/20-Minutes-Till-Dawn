@@ -293,6 +293,10 @@ public class Player {
         this.playerHealth += 1;
     }
 
+    public void cheatHP() {
+        this.playerHealth = 10;
+    }
+
     public void takeDamage(float damage) {
         if (!invincible) {
             playerHealth -= damage;

@@ -16,7 +16,7 @@ public class DropItem {
         sprite = new Sprite(texture);
         sprite.setPosition(x, y);
         sprite.setSize(32, 32);
-        rect = new CollisionRect(x, y, 32, 32);
+        rect = new CollisionRect(x, y, 64, 64);
     }
 
     public void update(Player player) {

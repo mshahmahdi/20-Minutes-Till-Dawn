@@ -302,6 +302,21 @@ public class GameView implements Screen, InputProcessor {
                 pause();
             }
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+            game.setTime(game.getTime() - 60f, 60f);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
+            controller.getPlayerController().getPlayer().setXP((int)xpBar.getMaxValue());
+            xpBar.setValue(xpBar.getMaxValue());
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
+            if (controller.getPlayerController().getPlayer().getPlayerHealth() == 1) {
+                controller.getPlayerController().getPlayer().cheatHP();
+            }
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.K)) {
+            game.getPumpkinMonsters().removeAll(game.getPumpkinMonsters());
+        }
         return false;
     }
 
