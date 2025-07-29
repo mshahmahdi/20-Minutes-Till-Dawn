@@ -107,8 +107,8 @@ public class FinalMenuView implements Screen {
         table.row();
 
         // دکمه‌ها
-        float buttonWidth = 400f;
-        float buttonHeight = 100f;
+        float buttonWidth = 500f;
+        float buttonHeight = 108f;
 
         playAgainButton.setColor(Color.valueOf("94D2BD")); // سبز ملایم
         table.add(playAgainButton).width(buttonWidth).height(buttonHeight).padBottom(30);

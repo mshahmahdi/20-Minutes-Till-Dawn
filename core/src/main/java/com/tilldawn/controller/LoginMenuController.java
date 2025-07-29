@@ -42,6 +42,7 @@ public class LoginMenuController {
                 } else {
                     App app = App.getApp();
                     app.setLoggedInUser(getUserByUsername(username));
+                    SignupMenuController.setAvatar(app.getLoggedInUser());
                     Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
                 }
             } else if (view.getForgetPasswordButton().isChecked()) {

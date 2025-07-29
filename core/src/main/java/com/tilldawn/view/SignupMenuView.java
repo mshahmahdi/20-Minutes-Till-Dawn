@@ -71,7 +71,7 @@ public class SignupMenuView implements Screen {
         this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
         this.fboRegion = new TextureRegion(fbo.getColorBufferTexture());
         this.table = new Table();
-        controller.setView(this);
+        this.controller.setView(this);
     }
 
 

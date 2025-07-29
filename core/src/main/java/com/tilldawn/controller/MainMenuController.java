@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.tilldawn.Main;
 import com.tilldawn.model.App;
 import com.tilldawn.model.MenuGameAssetManager;
+import com.tilldawn.model.Service.UserSaveManager;
 import com.tilldawn.model.User;
 import com.tilldawn.view.*;
 
@@ -46,7 +47,10 @@ public class MainMenuController {
                 app.getMusic().setVolume(0.5f);
                 Main.getMain().setScreen(new SignupMenuView(new SignupMenuController(), skin));
             } else if (view.getExitButton().isChecked()) {
+                App.getApp().setCurrentGame(null);
+                App.getApp().getLoggedInUser().setCurrentGame(null);
                 Gdx.app.exit();
+                UserSaveManager.saveUsersToJson();
             }
         }
     }

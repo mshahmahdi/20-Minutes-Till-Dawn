@@ -124,6 +124,7 @@ public class WeaponController {
         List<Bullet> bulletsToRemove = new ArrayList<>();
         List<PumpkinMonster> monstersToRemove = new ArrayList<>();
         List<EyebatMonster> eyebatMonstersToRemove = new ArrayList<>();
+        List<DragonMonster> dragonMonstersToRemove = new ArrayList<>();
 
         for (Bullet b : bullets) {
             b.update();
@@ -157,6 +158,38 @@ public class WeaponController {
                 }
             }
 
+            for (DragonMonster dragonMonster : weapon.game.getDragonMonsters()) {
+                {
+                    if (b.getRect().collidesWith(dragonMonster.getRect())) {
+                        dragonMonster.takeDamage(b.getDamage());
+                        dragonMonster.getSprite().setPosition(
+                            dragonMonster.getSprite().getX() + (Math.signum(dragonMonster.getSprite().getX() - player.getPosX())) * 30,
+                            dragonMonster.getSprite().getY() + (Math.signum(dragonMonster.getSprite().getY() - player.getPosY())) * 30);
+                        dragonMonster.getRect().move(dragonMonster.getSprite().getX(), dragonMonster.getSprite().getY());
+                        if (dragonMonster.isDead()) {
+                            player.addKills(1);
+                            Texture itemTexture = new Texture("sprite/T/T_ChargeUp_0.png"); // جایگزین عکس مورد نظر
+                            DroppedItem item = new DroppedItem(itemTexture,
+                                dragonMonster.getSprite().getX() + 10, // کمی کنارشه
+                                dragonMonster.getSprite().getY());
+                            weapon.game.getDroppedItems().add(item);
+                            dragonMonster.dead();
+                            animTime += Gdx.graphics.getDeltaTime();
+                            Texture currentFrame = deleteMonsterAnimation.getKeyFrame(animTime, false);
+                            Main.getBatch().draw(currentFrame, dragonMonster.getSprite().getX(), dragonMonster.getSprite().getY(),
+                                dragonMonster.getSprite().getWidth(),
+                                dragonMonster.getSprite().getHeight()); // مختصات و اندازه مورد نظر
+                            dragonMonstersToRemove.add(dragonMonster);
+                        }
+                        if (App.getApp().isSoundEffect()) {
+                            damagedSound.play(1.0f);
+                        }
+                        bulletsToRemove.add(b);
+                        break;
+                    }
+                }
+            }
+
             for (EyebatMonster eyebatMonster : weapon.game.getEyebatMonsters()) {
                 if (b.getRect().collidesWith(eyebatMonster.getRect())) {
                     eyebatMonster.takeDamage(b.getDamage());
@@ -187,9 +220,9 @@ public class WeaponController {
                 }
             }
 
-            if (getWeapon().game.getFinalBoss() != null) {
+            if (getWeapon().game.getFinalBoss() != null && !getWeapon().game.getFinalBoss().isDead()) {
                 if (b.getRect().collidesWith(getWeapon().game.getFinalBoss().getRect())) {
-                    getWeapon().game.getFinalBoss().takeDamage(b.getDamage(), player);
+                    getWeapon().game.getFinalBoss().takeDamage(b.getDamage());
                     getWeapon().game.getFinalBoss().getSprite().setPosition(
                         getWeapon().game.getFinalBoss().getSprite().getX() + (Math.signum(getWeapon().game.getFinalBoss().getSprite().getX() - player.getPosX())) * 30,
                         getWeapon().game.getFinalBoss().getSprite().getY() + (Math.signum(getWeapon().game.getFinalBoss().getSprite().getY() - player.getPosY())) * 30);
@@ -207,7 +240,6 @@ public class WeaponController {
                         Main.getBatch().draw(currentFrame, getWeapon().game.getFinalBoss().getSprite().getX(), getWeapon().game.getFinalBoss().getSprite().getY(),
                             getWeapon().game.getFinalBoss().getSprite().getWidth(),
                             getWeapon().game.getFinalBoss().getSprite().getHeight()); // مختصات و اندازه مورد نظر
-                        weapon.game.setFinalBoss(null);
                     }
                     if (App.getApp().isSoundEffect()) {
                         damagedSound.play(1.0f);
@@ -222,5 +254,6 @@ public class WeaponController {
         bullets.removeAll(bulletsToRemove);
         weapon.game.getPumpkinMonsters().removeAll(monstersToRemove);
         weapon.game.getEyebatMonsters().removeAll(eyebatMonstersToRemove);
+        weapon.game.getDragonMonsters().removeAll(dragonMonstersToRemove);
     }
 }

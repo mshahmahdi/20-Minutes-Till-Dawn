@@ -156,6 +156,13 @@ public class MenuGameAssetManager {
         new TextureRegion(new Texture("Ebyte monster/T_EyeBat_2.png")),
         new TextureRegion(new Texture("Ebyte monster/T_EyeBat_3.png")));
 
+    public final Animation<TextureRegion> dragon_monster = new Animation<>(0.1f, new TextureRegion(new Texture("sprite/DragonIdle/DragonIdle_0.png")),
+        new TextureRegion(new Texture("sprite/DragonIdle/DragonIdle_1.png")),
+        new TextureRegion(new Texture("sprite/DragonIdle/DragonIdle_2.png")),
+        new TextureRegion(new Texture("sprite/DragonIdle/DragonIdle_3.png")),
+        new TextureRegion(new Texture("sprite/DragonIdle/DragonIdle_4.png")),
+        new TextureRegion(new Texture("sprite/DragonIdle/DragonIdle_5.png")));
+
     public final Animation<TextureRegion> finalBossAnim = new Animation<>(0.2f, new TextureRegion(new Texture("Elder Brain monster/T_Yog_0.png")),
         new TextureRegion(new Texture("Elder Brain monster/T_Yog_1.png")),
         new TextureRegion(new Texture("Elder Brain monster/T_Yog_2.png")),

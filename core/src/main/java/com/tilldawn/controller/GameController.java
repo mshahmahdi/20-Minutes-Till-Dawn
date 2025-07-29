@@ -16,6 +16,7 @@ public class GameController {
 
     private float tentacleSpawnTimer = 0;
     private float eyeSpawnTimer = 0;
+    private float dragonSpawnTimer = 0;
 
     public GameController(Game game) {
         this.game = game;
@@ -31,6 +32,7 @@ public class GameController {
         if (view != null) {
             tentacleSpawnTimer += delta;
             eyeSpawnTimer += delta;
+            dragonSpawnTimer += delta;
 
             playerController.update(delta, camera, mapSprite);
             weaponController.update(playerController.getPlayer().getPosX(), playerController.getPlayer().getPosY(),
@@ -42,6 +44,15 @@ public class GameController {
                     float x = MathUtils.random(0, mapSprite.getWidth() - 64);
                     float y = MathUtils.random(0, mapSprite.getHeight() - 64);
                     game.getPumpkinMonsters().add(new PumpkinMonster(x, y));
+                }
+            }
+
+            if (App.getApp().getCurrentGameView().game.getSurvivalTime() > 60) { // بعد از ثانیه ۳۰
+                if (dragonSpawnTimer >= 10f) {
+                    dragonSpawnTimer = 0;
+                    float x = MathUtils.random(0, mapSprite.getWidth() - 64);
+                    float y = MathUtils.random(0, mapSprite.getHeight() - 64);
+                    game.getDragonMonsters().add(new DragonMonster(x, y));
                 }
             }
 

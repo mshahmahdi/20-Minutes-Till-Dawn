@@ -27,26 +27,31 @@ public class AbilityMenuController {
                             App.getApp().getCurrentGameView().game.setDamager(true);
                             Main.getMain().setScreen(App.getApp().getCurrentGameView());
                             App.getApp().getCurrentGameView().setIsPaused(false);
+                            App.getApp().getCurrentGame().setDamager(true);
                             break;
                         case "VITALITY" :
                             App.getApp().getCurrentGameView().getController().getPlayerController().getPlayer().addHP();
                             Main.getMain().setScreen(App.getApp().getCurrentGameView());
                             App.getApp().getCurrentGameView().setIsPaused(false);
+                            App.getApp().getCurrentGame().setVitality(true);
                             break;
                         case "AMOCREASE" :
                             App.getApp().getCurrentGameView().getController().getWeaponController().getWeapon().add5();
                             Main.getMain().setScreen(App.getApp().getCurrentGameView());
                             App.getApp().getCurrentGameView().setIsPaused(false);
+                            App.getApp().getCurrentGame().setAmocrease(true);
                             break;
                         case "PROCREASE" :
                             App.getApp().getCurrentGameView().getController().getWeaponController().getWeapon().addPellet();
                             Main.getMain().setScreen(App.getApp().getCurrentGameView());
                             App.getApp().getCurrentGameView().setIsPaused(false);
+                            App.getApp().getCurrentGame().setProcrease(true);
                             break;
                         case "SPEEDY" :
                             App.getApp().getCurrentGameView().getController().getPlayerController().getPlayer().activateSpeedBoost();
                             Main.getMain().setScreen(App.getApp().getCurrentGameView());
                             App.getApp().getCurrentGameView().setIsPaused(false);
+                            App.getApp().getCurrentGame().setSpeedy(true);
                             break;
                     }
                 }

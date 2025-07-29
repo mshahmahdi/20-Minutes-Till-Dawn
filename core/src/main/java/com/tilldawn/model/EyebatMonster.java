@@ -35,7 +35,7 @@ public class EyebatMonster extends Enemy {
         this.texture = new Texture("Ebyte monster/T_EyeBat_0.png");
         this.damageSound = Gdx.audio.newSound(Gdx.files.internal("musics/080884_bullet-hit-39872.mp3"));
         this.sprite = new Sprite(texture);
-        this.sprite.setSize(texture.getWidth() * 1.5f, texture.getHeight() * 1.5f);
+        this.sprite.setSize(texture.getWidth() * 2f, texture.getHeight() * 2f);
         this.sprite.setPosition(x, y);
         this.rect = new CollisionRect(x, y, sprite.getWidth(), sprite.getHeight());
         this.animation = MenuGameAssetManager.getMenuGameAssetManager().eyeBat_monster;

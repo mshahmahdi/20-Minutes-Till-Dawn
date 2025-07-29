@@ -11,8 +11,8 @@ public class DroppedItem {
     public DroppedItem(Texture texture, float x, float y) {
         this.sprite = new Sprite(texture);
         sprite.setPosition(x, y);
-        sprite.setSize(10, 10); // اندازه دلخواه
-        this.rect = new CollisionRect(x, y, sprite.getWidth(), sprite.getHeight());
+        sprite.setSize(15, 15); // اندازه دلخواه
+        this.rect = new CollisionRect(x, y, sprite.getWidth()*4f, sprite.getHeight()*4f);
     }
 
     public void render(SpriteBatch batch) {

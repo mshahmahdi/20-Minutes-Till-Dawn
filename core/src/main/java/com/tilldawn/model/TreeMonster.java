@@ -16,6 +16,7 @@ public class TreeMonster extends Enemy{
     public TreeMonster(float x, float y) {
         super(1); // مثلا هر درخت یه HP داشته باشه
         this.sprite = new Sprite(new Texture("tree_monster/T_TreeMonster_2.png"));
+        this.sprite.setSize(this.sprite.getWidth() * 2, this.sprite.getHeight() * 2);
         this.sprite.setPosition(x, y);
         this.rect = new CollisionRect(x, y, sprite.getWidth(), sprite.getHeight());
         this.animation = MenuGameAssetManager.getMenuGameAssetManager().TreeMonster;

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-public class FinalBoss extends Enemy{
+public class FinalBoss extends Enemy {
     private Sprite sprite;
     private CollisionRect rect;
     private float speed = 50f;
@@ -36,7 +36,7 @@ public class FinalBoss extends Enemy{
         Texture texture = new Texture("Elder Brain monster/T_Yog_3.png"); // یک تکسچر ساده برای شروع
         this.sprite = new Sprite(texture);
         this.sprite.setPosition(x, y);
-        this.sprite.setSize(texture.getWidth(), texture.getHeight());
+        this.sprite.setSize(texture.getWidth() * 4f, texture.getHeight() * 4f);
         this.rect = new CollisionRect(x, y, sprite.getWidth(), sprite.getHeight());
         this.animation = MenuGameAssetManager.getMenuGameAssetManager().finalBossAnim;
         this.animation.setPlayMode(Animation.PlayMode.LOOP);

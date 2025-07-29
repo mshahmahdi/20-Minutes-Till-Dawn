@@ -12,13 +12,9 @@ public class Enemy {
         this.health = initialHealth;
     }
 
-    public void takeDamage(float amount, Player player) {
+    public void takeDamage(float amount) {
         float currentTime = TimeUtils.nanoTime() / 1_000_000_000f;
-        if (!invincible) {
-            health -= amount;
-            lastDamageTime = currentTime;
-            invincible = true;
-        }
+        health -= amount;
     }
 
     public void update(float delta) {

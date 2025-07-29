@@ -85,11 +85,13 @@ public class SettingsMenuController {
                             KeysController.DOWN.setKey(Input.Keys.S);
                             KeysController.LEFT.setKey(Input.Keys.A);
                             KeysController.RIGHT.setKey(Input.Keys.D);
+                            break;
                         case 1:
                             KeysController.UP.setKey(Input.Keys.UP);
                             KeysController.DOWN.setKey(Input.Keys.DOWN);
                             KeysController.LEFT.setKey(Input.Keys.LEFT);
                             KeysController.RIGHT.setKey(Input.Keys.RIGHT);
+                            break;
                     }
                 }
             });

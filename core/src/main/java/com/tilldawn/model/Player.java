@@ -51,14 +51,14 @@ public class Player {
         this.playerTexture  = setPlayerTexture();
         this.playerSprite = new Sprite(playerTexture);
         playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-        playerSprite.setSize(playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
+        playerSprite.setSize(playerTexture.getWidth() * 4, playerTexture.getHeight() * 4);
         rect = new CollisionRect((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight(), playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
         this.width = setWidth();
         this.height = setHeight();
         this.damageSound = Gdx.audio.newSound(Gdx.files.internal("musics/punch-140236.mp3"));
         this.lightTexture = new Texture("sprite/T/T_Circle.png");
         this.lightSprite = new Sprite(lightTexture);
-        lightSprite.setSize(playerSprite.getWidth() * 7f, playerSprite.getHeight() * 6f); // هاله بزرگ‌تر از خود بازیکن
+        lightSprite.setSize(700f, 700f); // هاله بزرگ‌تر از خود بازیکن
         lightSprite.setOriginCenter();
         setHp();
     }

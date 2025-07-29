@@ -5,12 +5,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.tilldawn.controller.*;
 import com.tilldawn.model.App;
 import com.tilldawn.model.MenuGameAssetManager;
+import com.tilldawn.model.Service.UserSaveManager;
 import com.tilldawn.model.User;
 import com.tilldawn.view.*;
 
 import java.util.ArrayList;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+/**
+ * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ */
 public class Main extends Game {
     private static Main main;
     private static SpriteBatch batch;
@@ -19,14 +22,16 @@ public class Main extends Game {
     public void create() {
         main = this;
         batch = new SpriteBatch();
+        UserSaveManager.loadUsersFromJson();
         App.getApp().setLoggedInUser(new User("mostafa", "paSS12#$", "salam"));
         App.getApp().addUser(App.getApp().getLoggedInUser());
+        SignupMenuController.setAvatar(App.getApp().getLoggedInUser());
         //App.getApp().getLoggedInUser().setCurrentGame(new Game(1, App.getApp().getLoggedInUser()));
         for (int i = 0; i < 9; i++) {
-            App.getApp().setLoggedInUser(new User(randomName(), "paSS12#$", "salam"));
-            App.getApp().addUser(App.getApp().getLoggedInUser());
+            User user = new User(randomName(), "paSS12#$", "salam");
+            App.getApp().addUser(user);
+            SignupMenuController.setAvatar(user);
         }
-        SignupMenuController.setAvatar(App.getApp().getLoggedInUser());
         //Main.getMain().setScreen(new AbilityMenuView(new AbilityMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //Main.getMain().setScreen(new FinalMenuView(new FinalMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin(), true));
         //Main.getMain().setScreen(new PauseMenuView(new PauseMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin(), "Daddkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"));
@@ -40,6 +45,7 @@ public class Main extends Game {
         //getMain().setScreen(new ForgetPasswordView(new ForgetPasswordMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         //getMain().setScreen(new LoginMenuView(new LoginMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
         getMain().setScreen(new SignupMenuView(new SignupMenuController(), MenuGameAssetManager.getMenuGameAssetManager().getMenuSkin()));
+        UserSaveManager.saveUsersToJson();
     }
 
     @Override
@@ -70,11 +76,11 @@ public class Main extends Game {
 
     public static String randomName() {
         String a = "abcdefghijklmnopqrstuvwxyz";
-        int len = 5 + (int)(Math.random() * 6);
+        int len = 5 + (int) (Math.random() * 6);
         StringBuilder s = new StringBuilder();
-        s.append(Character.toUpperCase(a.charAt((int)(Math.random() * 26))));
+        s.append(Character.toUpperCase(a.charAt((int) (Math.random() * 26))));
         for (int i = 1; i < len; i++)
-            s.append(a.charAt((int)(Math.random() * 26)));
+            s.append(a.charAt((int) (Math.random() * 26)));
         return s.toString();
     }
 

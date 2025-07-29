@@ -205,17 +205,22 @@ public class GameView implements Screen, InputProcessor {
                 item.render(Main.getBatch());
             }
 
+            for (DragonMonster dragonMonster : game.getDragonMonsters()) {
+                dragonMonster.update(delta, controller.getPlayerController().getPlayer());
+                dragonMonster.render(Main.getBatch());
+            }
+
             for (EyebatMonster eyebat : game.getEyebatMonsters()) {
                 eyebat.update(delta, controller.getPlayerController().getPlayer());
                 eyebat.render(Main.getBatch());
             }
 
-            if (game.isBossSpawned() && game.getFinalBoss() != null && !game.getFinalBoss().isDead()) {
+            if (game.getFinalBoss() != null && !game.getFinalBoss().isDead()) {
                 game.getFinalBoss().render(Main.getBatch());
                 // می‌تونی دیوار حفاظتی رو با یه دایره یا کادر بکش
             }
 
-            if (game.isBossWallActive() && game.getBossRingSprite() != null) {
+            if (game.getFinalBoss() != null && !game.getFinalBoss().isDead()) {
                 game.getBossRingSprite().draw(Main.getBatch());
             }
 
@@ -265,6 +270,11 @@ public class GameView implements Screen, InputProcessor {
                 monster.render(Main.getBatch());
             }
 
+            for (DragonMonster dragonMonster : game.getDragonMonsters()) {
+                dragonMonster.update(delta, controller.getPlayerController().getPlayer());
+                dragonMonster.render(Main.getBatch());
+            }
+
             for (DroppedItem item : game.getDroppedItems()) {
                 item.render(Main.getBatch());
             }
@@ -274,12 +284,12 @@ public class GameView implements Screen, InputProcessor {
                 eyebat.render(Main.getBatch());
             }
 
-            if (game.isBossSpawned() && game.getFinalBoss() != null && !game.getFinalBoss().isDead()) {
+            if (game.getFinalBoss() != null && !game.getFinalBoss().isDead()) {
                 game.getFinalBoss().render(Main.getBatch());
                 // می‌تونی دیوار حفاظتی رو با یه دایره یا کادر بکش
             }
 
-            if (game.isBossWallActive() && game.getBossRingSprite() != null) {
+            if (game.getFinalBoss() != null && !game.getFinalBoss().isDead()) {
                 game.getBossRingSprite().draw(Main.getBatch());
             }
 
@@ -353,6 +363,9 @@ public class GameView implements Screen, InputProcessor {
         if (Gdx.input.isKeyJustPressed(Input.Keys.K)) {
             game.getPumpkinMonsters().removeAll(game.getPumpkinMonsters());
             game.getEyebatMonsters().removeAll(game.getEyebatMonsters());
+            game.getDragonMonsters().removeAll(game.getDragonMonsters());
+            game.setFinalBoss(null);
+            game.getFinalBoss().setHealth(0);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
             game.setTime(game.getTime() - 300f, 300f);

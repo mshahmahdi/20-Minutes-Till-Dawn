@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.tilldawn.controller.DropItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class Game {
 
     private FinalBoss finalBoss;
     private boolean bossSpawned = false;
-    private float bossWallSize = 7000f; // اندازه اولیه حفاظ
+    private float bossWallSize = 8000f; // اندازه اولیه حفاظ
     private boolean bossWallActive = false;
 
     private Texture bossRingTexture;
@@ -47,6 +48,7 @@ public class Game {
     private ArrayList<PumpkinMonster> pumpkinMonsters = new ArrayList<>();
     private List<DroppedItem> droppedItems = new ArrayList<>();
     private ArrayList<EyebatMonster> eyebatMonsters = new ArrayList<>();
+    private ArrayList<DragonMonster> dragonMonsters = new ArrayList<>();
 
     private boolean isAutoAim = false;
 
@@ -198,7 +200,7 @@ public class Game {
         }
 
         // حذف باس و حفاظ
-        if (bossSpawned && finalBoss != null) {
+        if (bossSpawned && finalBoss != null && finalBoss.isDead()) {
             bossWallActive = false;
         }
 
@@ -276,6 +278,10 @@ public class Game {
 
     public ArrayList<EyebatMonster> getEyebatMonsters() {
         return eyebatMonsters;
+    }
+
+    public ArrayList<DragonMonster> getDragonMonsters() {
+        return dragonMonsters;
     }
 
     public void setId(int id) {

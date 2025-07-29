@@ -62,21 +62,27 @@ public class PlayerController {
         for (TreeMonster tree : game.getTreeMonsters()) {
             if (tree.getRect().collidesWith(player.getRect())) {
                 player.takeDamage(1);
-                System.out.println(player.getPlayerHealth());
+                //System.out.println(player.getPlayerHealth());
             }
         }
 
         for (PumpkinMonster pumpkinMonster : game.getPumpkinMonsters()) {
             if (pumpkinMonster.getRect().collidesWith(player.getRect())) {
                 player.takeDamage(1);
-                System.out.println(player.getPlayerHealth());
+                //System.out.println(player.getPlayerHealth());
             }
         }
 
-        if (game.getFinalBoss() != null) {
+        for (DragonMonster dragonMonster : game.getDragonMonsters()) {
+            if (dragonMonster.getRect().collidesWith(player.getRect())) {
+                player.takeDamage(1);
+            }
+        }
+
+        if (game.getFinalBoss() != null && !game.getFinalBoss().isDead()) {
             if (game.getFinalBoss().getRect().collidesWith(player.getRect())) {
                 player.takeDamage(1);
-                System.out.println(player.getPlayerHealth());
+                //System.out.println(player.getPlayerHealth());
             }
         }
 
@@ -132,7 +138,7 @@ public class PlayerController {
             player.setPlayerIdle(false);
         }
         if (!Gdx.input.isKeyPressed(KeysController.LEFT.getKey()) &&
-        !Gdx.input.isKeyPressed(KeysController.RIGHT.getKey())) {
+            !Gdx.input.isKeyPressed(KeysController.RIGHT.getKey())) {
             player.setPlayerIdle(true);
         }
     }

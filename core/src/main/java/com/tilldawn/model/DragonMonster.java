@@ -3,14 +3,13 @@ package com.tilldawn.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.TimeUtils;
-import com.tilldawn.controller.DropItem;
 
-import java.util.ArrayList;
-
-public class PumpkinMonster extends Enemy {
+public class DragonMonster extends Enemy{
     private Sprite sprite;
     private CollisionRect rect;
     private float x, y;
@@ -25,16 +24,16 @@ public class PumpkinMonster extends Enemy {
     private boolean facingRight = true;
 
 
-    public PumpkinMonster(float x, float y) {
+    public DragonMonster(float x, float y) {
         super(25); // HP = 25;
         this.x = x;
         this.y = y;
-        this.texture = new Texture("T_PumpkinMonster/T_PumpkinMonster_0.png"); // مسیر تکسچر
+        this.texture = new Texture("sprite/DragonIdle/DragonIdle_0.png"); // مسیر تکسچر
         this.sprite = new Sprite(texture);
-        this.sprite.setSize(texture.getWidth() * 2f, texture.getHeight() * 2f);
-        this.rect = new CollisionRect(x, y, sprite.getWidth(), sprite.getHeight());
+        this.sprite.setSize(texture.getWidth() * 4f, texture.getHeight() * 4f);
         this.sprite.setPosition(x, y);
-        this.animation = MenuGameAssetManager.getMenuGameAssetManager().pumpkinMonster;
+        this.rect = new CollisionRect(x, y, sprite.getWidth(), sprite.getHeight());
+        this.animation = MenuGameAssetManager.getMenuGameAssetManager().dragon_monster;
         this.animation.setPlayMode(Animation.PlayMode.LOOP);
         this.dieSound = Gdx.audio.newSound(Gdx.files.internal("musics/monster-death-grunt-131480.mp3"));
     }
@@ -103,8 +102,4 @@ public class PumpkinMonster extends Enemy {
             dieSound.play(1.0f);
         }
     }
-
-
-
-
 }
